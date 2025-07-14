@@ -710,7 +710,7 @@ export default function HomePage() {
       </motion.section>
 
       {/* Meet Our Doctors */}
-      <section id="doctors" className="py-16 sm:py-20 bg-white relative overflow-hidden">
+      <section id="about-us" className="py-16 sm:py-20 bg-white relative overflow-hidden">
         {/* Background Decorations */}
         <motion.div
           animate={float}
@@ -993,16 +993,16 @@ export default function HomePage() {
     whileTap={{ scale: 0.95 }}
     className="flex flex-col sm:flex-row gap-4 sm:gap-0" // Added gap for mobile, removed for desktop
   >
-    <a href="https://www.youtube.com/@mr.mrs_kidsdoc" target="_blank" rel="noopener noreferrer">
-      <Button variant="outline" className="border-red-300 text-red-600 hover:bg-red-50 rounded-full">
-        <FaYoutube className="w-4 h-4 mr-2" />
-        Mr & Mrs Kids YT
-      </Button>
-    </a>
     <a href="https://www.instagram.com/mr.mrs_kidsdoc" target="_blank" rel="noopener noreferrer">
       <Button variant="outline" className="border-red-300 sm:ml-4 text-red-600 hover:bg-red-50 rounded-full">
         <FaInstagram className="w-4 h-4 mr-2" />
         Mr & Mrs Kids
+      </Button>
+    </a>
+        <a href="https://www.youtube.com/@mr.mrs_kidsdoc" target="_blank" rel="noopener noreferrer">
+      <Button variant="outline" className="border-red-300 text-red-600 hover:bg-red-50 rounded-full">
+        <FaYoutube className="w-4 h-4 mr-2" />
+        Mr & Mrs Kids YT
       </Button>
     </a>
   </motion.div>
@@ -1254,15 +1254,16 @@ export default function HomePage() {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
+          <a href="#appointment">
           <Button 
-            onClick={() => setIsOpen(true)}
-            size="lg"
-            className="bg-white text-indigo-600 hover:bg-gray-50 rounded-full px-6 sm:px-8 py-3 sm:py-4 shadow-lg hover:shadow-xl transition-all duration-300 font-medium"
+          size="lg"
+          className="bg-white text-indigo-600 hover:bg-gray-50 rounded-full px-6 sm:px-8 py-3 sm:py-4 shadow-lg hover:shadow-xl transition-all duration-300 font-medium"
           >
-            <Calendar className="w-5 h-5 mr-2" />
-            Book Appointment
-            <ArrowRight className="w-5 h-5 ml-2" />
+          <Calendar className="w-5 h-5 mr-2" />
+          Book Appointment
+          <ArrowRight className="w-5 h-5 ml-2" />
           </Button>
+          </a>
         </motion.div>
       </motion.div>
 
@@ -1586,7 +1587,7 @@ export default function HomePage() {
       <motion.div variants={item}>
         <h3 className="font-semibold mb-4 text-sm sm:text-base">Quick Links</h3>
         <div className="space-y-2">
-          {['Home', 'Doctors', 'Services'].map((link, index) => (
+          {['Home', 'About Us', 'Services'].map((link, index) => (
             <motion.div
               key={index}
               whileHover={{ x: 5 }}
