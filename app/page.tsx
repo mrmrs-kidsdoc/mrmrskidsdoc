@@ -1,6 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { FaInstagram, FaYoutube, FaFacebook, FaTwitter } from "react-icons/fa";
 import {
   Heart,
   Star,
@@ -13,12 +14,8 @@ import {
   Calendar,
   MapPin,
   Phone,
-  Mail,
-  Instagram,
-  Youtube,
   ArrowRight,
   PersonStanding,
-  Users,
    X,
   Award,
   Clock,
@@ -267,53 +264,122 @@ export default function HomePage() {
 
       {/* Mobile Menu Button */}
       <div className="md:hidden">
-        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-          <Button onClick={() => setIsOpen(true)} className="bg-gradient-to-r from-primary to-accent2 hover:from-accent4 hover:to-accent5 text-white rounded-full px-4 py-2">
-            <Calendar className="w-4 h-4 mr-1" />
-            Book Appointment
-          </Button>
-        </motion.div>
-      </div>
+  {/* First Line - Book Appointment Button */}
+  <motion.div 
+    whileHover={{ scale: 1.05 }} 
+    whileTap={{ scale: 0.95 }}
+    className="mb-2" // Add margin bottom for spacing
+  >
+    <a href="#appointment">
+      <Button className="bg-gradient-to-r from-primary to-accent2 hover:from-accent4 hover:to-accent5 text-white rounded-full px-4 py-2 w-full">
+        <Calendar className="w-4 h-4 mr-1" />
+        Book Appointment
+      </Button>
+    </a>
+  </motion.div>
+
+  {/* Second Line - Social Icons */}
+  <div className="flex justify-center space-x-4">
+    {/* Instagram */}
+    <motion.a
+      href="https://www.instagram.com/mr.mrs_kidsdoc/"
+      target="_blank"
+      rel="noopener noreferrer"
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
+      className="bg-gradient-to-br from-purple-600 to-pink-600 p-2 rounded-full"
+    >
+      <FaInstagram className="w-5 h-5 text-white" />
+    </motion.a>
+
+    {/* YouTube */}
+    <motion.a
+      href="https://www.youtube.com/@mr.mrs_kidsdoc"
+      target="_blank"
+      rel="noopener noreferrer"
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
+      className="bg-red-600 p-2 rounded-full"
+    >
+      <FaYoutube className="w-5 h-5 text-white" />
+    </motion.a>
+  </div>
+</div>
 
       {/* Desktop Menu */}
       <motion.div
-        initial={{ x: 50, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ delay: 0.2 }}
-        className="hidden md:flex items-center space-x-4 lg:space-x-6"
+  initial={{ x: 50, opacity: 0 }}
+  animate={{ x: 0, opacity: 1 }}
+  transition={{ delay: 0.2 }}
+  className="hidden md:flex items-center space-x-4 lg:space-x-6"
+>
+  {/* Navigation Links */}
+  {["Home", "About Us", "Services"].map((item, index) => (
+    <motion.div
+      key={item}
+      initial={{ y: -20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ delay: 0.3 + index * 0.1 }}
+    >
+      <Link
+        href={`#${item.toLowerCase().replace(" ", "-")}`}
+        className="text-gray-700 hover:text-primary transition-all duration-300 font-medium"
       >
-        {["Home", "About Us", "Services", "Contact"].map(
-          (item, index) => (
-            <motion.div
-              key={item}
-              initial={{ y: -20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.3 + index * 0.1 }}
-            >
-              <Link
-                href={`#${item.toLowerCase().replace(" ", "-")}`}
-                className="text-gray-700 hover:text-primary transition-all duration-300 font-medium"
-              >
-                <motion.span whileHover={{ scale: 1.05 }} className="block">
-                  {item}
-                </motion.span>
-              </Link>
-            </motion.div>
-          )
-        )}
-        <motion.div
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ delay: 0.8, type: "spring" }}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <Button onClick={() => setIsOpen(true)} className="bg-gradient-to-r from-primary to-accent2 hover:from-accent4 hover:to-accent5 text-white rounded-full px-4 lg:px-6 py-2 shadow-lg hover:shadow-xl transition-all duration-300">
-            <Calendar className="w-4 h-4 mr-2" />
-            Book Appointment
-          </Button>
-        </motion.div>
-      </motion.div>
+        <motion.span whileHover={{ scale: 1.05 }} className="block">
+          {item}
+        </motion.span>
+      </Link>
+    </motion.div>
+  ))}
+
+  {/* Social Icons */}
+  <motion.div
+    initial={{ scale: 0 }}
+    animate={{ scale: 1 }}
+    transition={{ delay: 0.6, type: "spring" }}
+    className="flex space-x-3"
+  >
+    {/* Instagram */}
+    <motion.a
+      href="https://www.instagram.com/mr.mrs_kidsdoc/"
+      target="_blank"
+      rel="noopener noreferrer"
+      whileHover={{ scale: 1.1, y: -2 }}
+      whileTap={{ scale: 0.9 }}
+      className="bg-gradient-to-br from-purple-600 to-pink-600 p-2 rounded-full text-white"
+    >
+      <FaInstagram className="w-4 h-4" />
+    </motion.a>
+
+    {/* YouTube */}
+    <motion.a
+      href="https://www.youtube.com/@mr.mrs_kidsdoc"
+      target="_blank"
+      rel="noopener noreferrer"
+      whileHover={{ scale: 1.1, y: -2 }}
+      whileTap={{ scale: 0.9 }}
+      className="bg-red-600 p-2 rounded-full text-white"
+    >
+      <FaYoutube className="w-4 h-4" />
+    </motion.a>
+  </motion.div>
+
+  {/* Appointment Button */}
+  <motion.div
+    initial={{ scale: 0 }}
+    animate={{ scale: 1 }}
+    transition={{ delay: 0.8, type: "spring" }}
+    whileHover={{ scale: 1.05 }}
+    whileTap={{ scale: 0.95 }}
+  >
+    <a href="#appointment">
+      <Button className="bg-gradient-to-r from-primary to-accent2 hover:from-accent4 hover:to-accent5 text-white rounded-full px-4 lg:px-6 py-2 shadow-lg hover:shadow-xl transition-all duration-300">
+        <Calendar className="w-4 h-4 mr-2" />
+        Book Appointment
+      </Button>
+    </a>
+  </motion.div>
+</motion.div>
     </div>
   </div>
 </motion.nav>
@@ -929,13 +995,13 @@ export default function HomePage() {
   >
     <a href="https://www.youtube.com/@mr.mrs_kidsdoc" target="_blank" rel="noopener noreferrer">
       <Button variant="outline" className="border-red-300 text-red-600 hover:bg-red-50 rounded-full">
-        <Youtube className="w-4 h-4 mr-2" />
+        <FaYoutube className="w-4 h-4 mr-2" />
         Mr & Mrs Kids YT
       </Button>
     </a>
     <a href="https://www.instagram.com/mr.mrs_kidsdoc" target="_blank" rel="noopener noreferrer">
       <Button variant="outline" className="border-red-300 sm:ml-4 text-red-600 hover:bg-red-50 rounded-full">
-        <Instagram className="w-4 h-4 mr-2" />
+        <FaInstagram className="w-4 h-4 mr-2" />
         Mr & Mrs Kids
       </Button>
     </a>
@@ -1158,13 +1224,14 @@ export default function HomePage() {
         }}
         style={{
           backgroundSize: "200% auto",
-          backgroundImage: "linear-gradient(to right, #fff, #a5b4fc, #c7d2fe, #fff)"
+          backgroundImage: "linear-gradient(to right, #e0f2fe, #bae6fd, #a5f3fc, #bae6fd, #e0f2fe)"
         }}
         className="text-3xl sm:text-4xl lg:text-5xl font-bold text-transparent bg-clip-text py-5 mb-6"
       >
         Ready for Your Next Adventure?
       </motion.h2>
 
+      {/* Rest of the component remains the same */}
       <motion.p
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -1449,165 +1516,182 @@ export default function HomePage() {
 
       {/* Footer */}
       <motion.footer
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-        className="bg-gradient-to-r from-gray-800 to-gray-900 text-white py-12 relative overflow-hidden"
-      >
-        {/* Background decorations */}
-        <div className="absolute inset-0">
-          {[...Array(10)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute rounded-full"
+  initial={{ opacity: 0 }}
+  whileInView={{ opacity: 1 }}
+  transition={{ duration: 0.8 }}
+  viewport={{ once: true }}
+  className="bg-gradient-to-r from-gray-800 to-gray-900 text-white py-12 relative overflow-hidden"
+>
+  {/* Background decorations */}
+  <div className="absolute inset-0">
+    {[...Array(10)].map((_, i) => (
+      <motion.div
+        key={i}
+        className="absolute rounded-full"
+        style={{
+          top: `${Math.random() * 100}%`,
+          left: `${Math.random() * 100}%`,
+          width: `${Math.random() * 5 + 2}px`,
+          height: `${Math.random() * 5 + 2}px`,
+          backgroundColor: `rgba(255, 255, 255, ${Math.random() * 0.1 + 0.05})`
+        }}
+        animate={{
+          y: [0, (Math.random() - 0.5) * 20],
+          x: [0, (Math.random() - 0.5) * 20],
+          opacity: [0.1, 0.2, 0.1]
+        }}
+        transition={{
+          duration: Math.random() * 10 + 10,
+          repeat: Infinity,
+          repeatType: "reverse",
+          ease: "easeInOut"
+        }}
+      />
+    ))}
+  </div>
+  
+  <div className="container mx-auto px-4 relative z-10">
+    <motion.div
+      variants={container}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true }}
+      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
+    >
+      {/* Logo Section - Updated with larger responsive logo */}
+      <motion.div variants={item} className="space-y-4">
+        <div className="flex flex-col items-start gap-4">
+          <motion.div 
+            className="w-full max-w-[200px] sm:max-w-[250px] md:max-w-[300px]"
+            whileHover={{ scale: 1.03 }}
+            transition={{ duration: 0.3 }}
+          >
+            <img 
+              src="logo.png" 
+              alt="Mr. & Mrs. Kids Logo" 
+              className="w-full h-auto object-contain" 
               style={{
-                top: `${Math.random() * 100}%`,
-                left: `${Math.random() * 100}%`,
-                width: `${Math.random() * 5 + 2}px`,
-                height: `${Math.random() * 5 + 2}px`,
-                backgroundColor: `rgba(255, 255, 255, ${Math.random() * 0.1 + 0.05})`
-              }}
-              animate={{
-                y: [0, (Math.random() - 0.5) * 20],
-                x: [0, (Math.random() - 0.5) * 20],
-                opacity: [0.1, 0.2, 0.1]
-              }}
-              transition={{
-                duration: Math.random() * 10 + 10,
-                repeat: Infinity,
-                repeatType: "reverse",
-                ease: "easeInOut"
+                minWidth: '150px', // Ensures good visibility on mobile
+                maxWidth: '300px'  // Prevents it from getting too large
               }}
             />
+          </motion.div>
+          <p className="text-gray-400 text-sm sm:text-base md:text-lg">
+            Making healthcare magical for children and families since 2014.
+          </p>
+        </div>
+      </motion.div>
+
+      {/* Rest of the footer content remains the same */}
+      <motion.div variants={item}>
+        <h3 className="font-semibold mb-4 text-sm sm:text-base">Quick Links</h3>
+        <div className="space-y-2">
+          {['Home', 'Doctors', 'Services'].map((link, index) => (
+            <motion.div
+              key={index}
+              whileHover={{ x: 5 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Link href={`#${link.toLowerCase().replace(' ', '-')}`} className="block text-gray-400 hover:text-white transition-colors text-sm sm:text-base">
+                {link}
+              </Link>
+            </motion.div>
           ))}
         </div>
-        <div className="container mx-auto px-4 relative z-10">
+      </motion.div>
+
+      <motion.div variants={item}>
+        <h3 className="font-semibold mb-4 text-sm sm:text-base">Services</h3>
+        <div className="space-y-2 text-gray-400 text-sm sm:text-base">
+          {['New Born Care','Well-Child Visits', 'Vaccinations', 'Developmental and Behavioral Screening', 'Growth Assessment and Nutrition Advice', 'Sick Visits'].map((service, index) => (
+            <motion.p
+              key={index}
+              whileHover={{ x: 5, color: "#fff" }}
+              transition={{ duration: 0.3 }}
+              className="cursor-pointer"
+            >
+              {service}
+            </motion.p>
+          ))}
+        </div>
+      </motion.div>
+
+      <motion.div variants={item}>
+        <h3 className="font-semibold mb-4 text-sm sm:text-base">Connect with Us</h3>
+        <div className="space-y-2 text-sm sm:text-base">
+          <p className="text-gray-400">Aster Prime Hospital</p>
+          <p className="text-gray-400">Plot No 4, HMDA Maitrivanam, Satyam Theatre Rd, beside Blue Fox Hotel, Kumar Basti,</p>
+          <p className="text-gray-400">Srinivasa Nagar,Ameerpet, Hyderabad, Telangana 500038</p>
           <motion.div
             variants={container}
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
+            className="flex space-x-3 pt-2"
           >
-            <motion.div variants={item} className="space-y-4">
-              <div className="flex items-center space-x-2">
-                <motion.div className="flex flex-col items-center gap-2">
-  <div className="flex items-center gap-2">
-    <motion.div className="w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center">
-      <img 
-        src="logo.png" 
-        alt="Mr. & Mrs. Kids Logo" 
-        className="w-24 h-45 sm:w-20 sm:h-20 object-contain" 
-      />
-    </motion.div>
-    {/* <span className="text-lg sm:text-xl font-bold">Mr. & Mrs. Kids</span> */}
-  </div>
-  <p className="text-gray-400 text-sm sm:text-base">
-    Making healthcare magical for children and families since 2014.
-  </p>
-</motion.div>
-                {/* <span className="text-lg sm:text-xl font-bold">Mr. & Mrs. Kids</span> */}
-              </div>
-            </motion.div>
-            <motion.div variants={item}>
-              <h3 className="font-semibold mb-4 text-sm sm:text-base">Quick Links</h3>
-              <div className="space-y-2">
-                {['Home', 'Doctors', 'Services', 'Contact'].map((link, index) => (
-                  <motion.div
-                    key={index}
-                    whileHover={{ x: 5 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <Link href={`#${link.toLowerCase().replace(' ', '-')}`} className="block text-gray-400 hover:text-white transition-colors text-sm sm:text-base">
-                      {link}
-                    </Link>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-            <motion.div variants={item}>
-              <h3 className="font-semibold mb-4 text-sm sm:text-base">Services</h3>
-              <div className="space-y-2 text-gray-400 text-sm sm:text-base">
-                {['New Born Care','Well-Child Visits', 'Vaccinations', 'Developmental and Behavioral Screening', 'Growth Assessment and Nutrition Advice', 'Sick Visits'].map((service, index) => (
-                  <motion.p
-                    key={index}
-                    whileHover={{ x: 5, color: "#fff" }}
-                    transition={{ duration: 0.3 }}
-                    className="cursor-pointer"
-                  >
-                    {service}
-                  </motion.p>
-                ))}
-              </div>
-            </motion.div>
-            <motion.div variants={item}>
-              <h3 className="font-semibold mb-4 text-sm sm:text-base">Connect with Us</h3>
-              <div className="space-y-2 text-sm sm:text-base">
-                <p className="text-gray-400">Plot No 4, HMDA Maitrivanam, Satyam Theatre Rd, beside Blue Fox Hotel, Kumar Basti, Srinivasa Nagar</p>
-                <p className="text-gray-400">Ameerpet, Hyderabad, Telangana 500038</p>
-                {/* <p className="text-gray-400">91+ 9059033216</p> */}
-                <motion.div
-                  variants={container}
-                  initial="hidden"
-                  whileInView="show"
-                  viewport={{ once: true }}
-                  className="flex space-x-3 pt-2"
-                >
-                  {[
-                    { icon: <Instagram className="w-4 h-4" />, color: "pink", link:"https://www.instagram.com/mr.mrs_kidsdoc/" },
-                    { icon: <Youtube className="w-4 h-4" />, color: "red", link:"https://www.youtube.com/@mr.mrs_kidsdoc" },
-                    // { icon: <Mail className="w-4 h-4" />, color: "blue" }
-                  ].map((item, index) => (
-                    <motion.div
-                      key={index}
-                      whileHover={{ scale: 1.1, y: -5 }}
-                      whileTap={{ scale: 0.9 }}
-                    >
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        className={`border-gray-600 text-gray-400 hover:text-white hover:border-${item.color}-300 transform transition-all duration-300`}
-                      >
-                        {item.icon}
-                      </Button>
-                    </motion.div>
-                  ))}
-                </motion.div>
-              </div>
-            </motion.div>
-          </motion.div>
+          {[
+          { 
+          icon: <FaInstagram className="w-5 h-5" />, 
+          color: "bg-gradient-to-br from-purple-500 to-pink-500",
+          link: "https://www.instagram.com/mr.mrs_kidsdoc/" 
+          },
+          { 
+          icon: <FaYoutube className="w-5 h-5" />, 
+          color: "bg-red-600",
+          link: "https://www.youtube.com/@mr.mrs_kidsdoc" 
+          },
+          ].map((item, index) => (
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            viewport={{ once: true }}
-            className="border-t border-gray-700 mt-8 pt-8 text-center"
+          key={index}
+          whileHover={{ scale: 1.1, y: -5 }}
+          whileTap={{ scale: 0.9 }}
           >
-            <p className="text-gray-400 text-sm sm:text-base">
-              © {new Date().getFullYear()}{" "}
-              <motion.a
-                whileHover={{
-                  backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "linear"
-                }}
-                style={{
-                  backgroundSize: "200% auto",
-                  backgroundImage: "linear-gradient(to right, #a855f7, #ec4899, #a855f7)"
-                }}
-                className="font-medium text-transparent bg-clip-text"
-              >
-                Mr. & Mrs. Kids Pediatric Practice.
-              </motion.a>{" "}
-              All rights reserved. | Made with ❤️ for little ones everywhere.
-            </p>
+          <a href={item.link} target="_blank" rel="noopener noreferrer">
+          <Button
+          size="sm"
+          className={`${item.color} text-white p-2 rounded-full hover:opacity-90 transform transition-all duration-300`}
+          >
+          {item.icon}
+          </Button>
+          </a>
+          </motion.div>
+          ))}
           </motion.div>
         </div>
-      </motion.footer>
+      </motion.div>
+    </motion.div>
+
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay: 0.4 }}
+      viewport={{ once: true }}
+      className="border-t border-gray-700 mt-8 pt-8 text-center"
+    >
+      <p className="text-gray-400 text-sm sm:text-base">
+        © {new Date().getFullYear()}{" "}
+        <motion.a
+          whileHover={{
+            backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+          style={{
+            backgroundSize: "200% auto",
+            backgroundImage: "linear-gradient(to right, #a855f7, #ec4899, #a855f7)"
+          }}
+          className="font-medium text-transparent bg-clip-text"
+        >
+          Mr. & Mrs. Kids Doc
+        </motion.a>{" "}
+        All rights reserved. | Made with ❤️ for little ones everywhere.
+      </p>
+    </motion.div>
+  </div>
+</motion.footer>
     </div>
   );
 }

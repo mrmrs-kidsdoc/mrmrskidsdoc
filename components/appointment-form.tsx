@@ -7,13 +7,15 @@ import {
   Calendar,
   Phone,
   MapPin,
-  Hospital
+  Hospital,
+  CircleUser
 } from "lucide-react"
 
 export function AppointmentForm(): JSX.Element {
   const [activeTab, setActiveTab] = useState<"clinic" | "online">("clinic")
 
   const hospitalInfo = {
+    doctor: "Dr. Rishivardhan Reddy",
     name: "Aster Prime Hospital - Hyderabad",
     address: `Plot No 4, HMDA Maitrivanam,
 Satyam Theatre Rd, beside Blue Fox Hotel,
@@ -30,7 +32,7 @@ Ameerpet, Hyderabad, Telangana 500038`,
       <div className="absolute bottom-10 right-10 w-16 h-16 bg-blue-200 rounded-full opacity-30 animate-bounce" />
       <div className="absolute top-1/2 left-1/4 w-12 h-12 bg-pink-200 rounded-full opacity-30 animate-pulse" />
 
-      <div className="container mx-auto px-4">
+      <div id="appointment" className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-12 animate-fadeInUp">
           <div className="flex items-center justify-center space-x-2 text-purple-500 mb-4">
@@ -82,6 +84,10 @@ Ameerpet, Hyderabad, Telangana 500038`,
           <div className="grid md:grid-cols-1 gap-8 max-w-6xl mx-auto">
             <Card className="shadow-2xl border-2 border-blue-200 hover:border-blue-300 transition-all duration-300 animate-slideInLeft text-center">
               <CardContent className="p-6 sm:p-8">
+                <h3 className="text-2xl font-bold text-gray-800 mb-6 flex items-center justify-center">
+                  <CircleUser className="w-6 h-6 text-blue-500 mr-2" />
+                  {hospitalInfo.doctor}
+                </h3>
                 <h3 className="text-2xl font-bold text-gray-800 mb-6 flex items-center justify-center">
                   <Hospital className="w-6 h-6 text-blue-500 mr-2" />
                   {hospitalInfo.name}
@@ -164,7 +170,7 @@ Ameerpet, Hyderabad, Telangana 500038`,
                 Online Video Consultation
               </h3>
               <p className="text-gray-600 mb-6">
-                Book a secure video consultation with Dr. Rishivardhan Reddy through our trusted partner platform.
+                Book a secure video consultation with <b>{hospitalInfo.doctor}</b> through our trusted partner platform.
               </p>
 
               <Button
