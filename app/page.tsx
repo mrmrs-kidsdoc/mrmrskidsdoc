@@ -756,7 +756,7 @@ export default function HomePage() {
               viewport={{ once: true }}
               className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto"
             >
-              Two amazing doctors who've dedicated their lives to making healthcare fun, safe, and memorable for
+              Two amazing doctors who've dedicated their lives to making healthcare fun, safe, and memorable for your
               children and families.
             </motion.p>
           </motion.div>
