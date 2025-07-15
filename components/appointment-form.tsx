@@ -51,7 +51,7 @@ Ameerpet, Hyderabad, Telangana 500038`,
       address: `Main Road Madinaguda, Miyapur, Hyderabad, Telangana 500049`,
       phone: "+9109059705797",
       onlineBooking: "https://www.connect2clinic.com/doctor/sahithi-reddy",
-      mapLink: "https://www.google.com/maps/dir//Paramitha+Hospital",
+      mapLink: "https://maps.app.goo.gl/9JJLS2Ln4mrMduqH9?g_st=aw",
       hrefClinic:"book-clinic-sahithi",
       hrefOnline:"book-online-sahithi"
     }
