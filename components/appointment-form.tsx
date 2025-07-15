@@ -11,8 +11,9 @@ import {
   CircleUser
 } from "lucide-react"
 import { useSearchParams } from "next/navigation"
+import { Suspense } from "react"
 
-export function AppointmentForm(): JSX.Element {
+function AppointmentFormContent(): JSX.Element {
   const searchParams = useSearchParams()
   const [activeTab, setActiveTab] = useState<"clinic" | "online">("clinic")
   const [selectedDoctor, setSelectedDoctor] = useState(0)
@@ -264,5 +265,13 @@ Ameerpet, Hyderabad, Telangana 500038`,
         )}
       </div>
     </section>
+  )
+}
+
+export function AppointmentForm() {
+  return (
+    <Suspense fallback={<div>Loading appointment options...</div>}>
+      <AppointmentFormContent />
+    </Suspense>
   )
 }

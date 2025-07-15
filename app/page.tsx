@@ -42,8 +42,6 @@ import { TestimonialsSection } from "@/components/testimonials";
 import { GoogleBusinessProfile } from "@/components/google-business";
 import { motion, easeInOut, easeOut , AnimatePresence} from "framer-motion";
 import { useState, useEffect, JSX } from "react";
-import ConsultationModal from "@/components/consultation-model";
-
 interface ConsultationOption {
   name: string;
   type: string;
