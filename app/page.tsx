@@ -295,8 +295,8 @@ const handleOptionClick = (option: ConsultationOption) => {
       transition={{ duration: 0.8, type: "spring", stiffness: 100 }}
       className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b-2 border-accent2 shadow-lg"
     >
-      <div className="container mx-auto px-4 sm:px-6">
-        <div className="flex items-center justify-between py-2">
+      <div className="container mx-auto px-5 sm:px-4">
+        <div className="flex items-center justify-between">
           {/* Logo - Extra large and dominant */}
           <motion.div
             initial={{ x: -50, opacity: 0 }}
@@ -317,10 +317,10 @@ const handleOptionClick = (option: ConsultationOption) => {
           </motion.div>
 
           {/* Mobile Menu - Stacked vertically */}
-          <div className="md:hidden flex flex-col items-end space-y-2 ml-4">
+          <div className="md:hidden flex flex-col items-end space-y-1 ml-2">
             {/* Social Icons - First Line */}
             <motion.div 
-              className="flex space-x-3"
+              className="flex space-x-2"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}

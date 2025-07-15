@@ -92,7 +92,7 @@ Ameerpet, Hyderabad, Telangana 500038`,
             >
               <span className="flex items-center">
                 <CircleUser className="w-6 h-6 mr-2" />
-                {doctor.doctor}
+                Dr. {doctor.doctor.split(" ")[1]}
               </span>
             </button>
           ))}
