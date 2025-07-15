@@ -8,6 +8,7 @@ import {
   Sparkles,
   Cross,
   Baby,
+  Home, Video ,
   Stethoscope,
   BriefcaseMedical,
   ClipboardPenLine,
@@ -30,7 +31,9 @@ import {
   Candy,
   BombIcon as Balloon,
   Linkedin,
-  Brain
+  Brain,
+  Hospital,
+  ChevronRight
 } from 'lucide-react';
 import Image from "next/image";
 import Link from "next/link";
@@ -38,8 +41,24 @@ import { AppointmentForm } from "@/components/appointment-form";
 import { TestimonialsSection } from "@/components/testimonials";
 import { GoogleBusinessProfile } from "@/components/google-business";
 import { motion, easeInOut, easeOut , AnimatePresence} from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, JSX } from "react";
+import ConsultationModal from "@/components/consultation-model";
 
+interface ConsultationOption {
+  name: string;
+  type: string;
+  icon: JSX.Element;
+  href: string;
+  isOnline: boolean;
+  doctorIndex: number;
+}
+
+interface ConsultationModalProps {
+  isOpen: boolean;
+  setIsOpen: (value: boolean) => void;
+  setActiveTab: (value: "clinic" | "online") => void;
+  setSelectedDoctor: (value: number) => void;
+}
 // Animation variants
 const container = {
   hidden: { opacity: 0 },
@@ -92,123 +111,155 @@ const bounce = {
 export default function HomePage() {
   const [isVisible] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState<"clinic" | "online">("clinic");
+  const [selectedDoctor, setSelectedDoctor] = useState(0);
 
-  useEffect(() => {
-    // Trigger animations or API calls can be added here
-  }, []);
-   const hospitalInfo = {
-    name: "Aster Prime Hospital - Hyderabad",
-    address: "Plot No 4, HMDA Maitrivanam, Satyam Theatre Rd, beside Blue Fox Hotel, Kumar Basti, Srinivasa Nagar, Ameerpet, Hyderabad, Telangana 500038",
-    phone: "+91 40 4959 4959",
-    // hours: "Mon-Fri: 8:00 AM - 6:00 PM\nSat: 9:00 AM - 2:00 PM"
-  };
+   const options: ConsultationOption[] = [
+     {
+       name: "Dr. Rishivardhan Reddy Clinic",
+       type: "In-person",
+       icon: <Home className="w-5 h-5 text-primary" />,
+       href: "#book-clinic-rishi",
+       isOnline: false,
+       doctorIndex: 0,
+     },
+     {
+       name: "Dr. Rishivardhan Reddy Online",
+       type: "Video Consultation",
+       icon: <Video className="w-5 h-5 text-primary" />,
+       href: "#book-online-rishi",
+       isOnline: true,
+       doctorIndex: 0,
+     },
+     {
+       name: "Dr. Sahithi Reddy Avula Clinic",
+       type: "In-person",
+       icon: <Home className="w-5 h-5 text-primary" />,
+       href: "#book-clinic-sahithi",
+       isOnline: false,
+       doctorIndex: 1,
+     },
+     {
+       name: "Dr. Sahithi Reddy Avula Online",
+       type: "Video Consultation",
+       icon: <Video className="w-5 h-5 text-primary" />,
+       href: "#book-online-sahithi",
+       isOnline: true,
+       doctorIndex: 1,
+     },
+   ];
+
+     const hospitalInfo = [
+    {
+      doctor: "Dr. Rishivardhan Reddy",
+      name: "Aster Prime Hospital - Hyderabad",
+      address: `Plot No 4, HMDA Maitrivanam,
+Satyam Theatre Rd, beside Blue Fox Hotel,
+Kumar Basti, Srinivasa Nagar,
+Ameerpet, Hyderabad, Telangana 500038`,
+      phone: "+914049594959",
+      onlineBooking: "https://www.connect2clinic.com/doctor/rishivardhan-reddy",
+      mapLink: "https://www.google.com/maps/dir//Plot+No+4,+HMDA+Maitrivanam",
+      hrefClinic:"book-clinic-rishi",
+      hrefOnline:"book-online-rishi"
+    },
+    {
+      doctor: "Dr. Sahithi Reddy Avula",
+      name: "Paramitha women & children's Hospital",
+      address: `Main Road Madinaguda, Miyapur, Hyderabad, Telangana 500049`,
+      phone: "+9109059705797",
+      onlineBooking: "https://www.connect2clinic.com/doctor/sahithi-reddy",
+      mapLink: "https://www.google.com/maps/dir//Paramitha+Hospital",
+      hrefClinic:"book-clinic-sahithi",
+      hrefOnline:"book-online-sahithi"
+    }
+  ]
+
+const handleOptionClick = (option: ConsultationOption) => {
+  setIsOpen(false);
+  // Update URL with the correct parameters
+  const url = new URL(window.location.href);
+  url.hash = '#appointment';
+  url.searchParams.set('tab', option.isOnline ? 'online' : 'clinic');
+  url.searchParams.set('doctor', option.doctorIndex.toString());
+  url.searchParams.set('scroll', 'true');
+  
+  window.location.href = url.toString();
+};
   return (
     <div className="min-h-screen bg-gradient-to-br from-accent1 via-accent3 to-accent8 overflow-x-hidden font-sans">
       {/* Modal Dialog */}
-      <AnimatePresence>
-        {isOpen && (
+        <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          className="fixed inset-0 bg-black/30 z-50 flex items-center justify-center p-4"
+          onClick={() => setIsOpen(false)}
+        >
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 bg-black/30 z-50 flex items-center justify-center p-4"
-            onClick={() => setIsOpen(false)}
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 20, opacity: 0 }}
+            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+            className="bg-white rounded-xl max-w-md w-full p-6 shadow-2xl relative mx-4"
+            onClick={(e) => e.stopPropagation()}
           >
-            <motion.div
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: 20, opacity: 0 }}
-              transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="bg-white rounded-xl max-w-md w-full p-6 shadow-2xl relative mx-4"
-              onClick={(e) => e.stopPropagation()}
+            <button
+              onClick={() => setIsOpen(false)}
+              className="absolute top-3 right-3 p-1 rounded-full hover:bg-gray-100 transition-colors"
+              aria-label="Close"
             >
-              {/* Close Button */}
-              <button
-                onClick={() => setIsOpen(false)}
-                className="absolute top-3 right-3 p-1 rounded-full hover:bg-gray-100 transition-colors"
-                aria-label="Close"
+              <X className="w-5 h-5 text-gray-500" />
+            </button>
+
+            <div className="space-y-5">
+              <motion.h3
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="text-2xl font-bold text-gray-800 text-center"
               >
-                <X className="w-5 h-5 text-gray-500" />
-              </button>
+                Book Consultation
+              </motion.h3>
 
-              {/* Modal Content */}
-              <div className="space-y-5">
-                <motion.h3 
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 }}
-                  className="text-2xl font-bold text-gray-800"
-                >
-                  {hospitalInfo.name}
-                </motion.h3>
-
-                <motion.div 
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.2 }}
-                  className="space-y-3 text-gray-600"
-                >
-                <div className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 mt-0.5 text-primary flex-shrink-0" />
-                <a
-                href="https://www.google.com/maps/dir//Plot+No+4,+HMDA+Maitrivanam,+Satyam+Theatre+Rd,+beside+Blue+Fox+Hotel,+Kumar+Basti,+Srinivasa+Nagar,+Ameerpet,+Hyderabad,+Telangana+500038/@17.4374585,78.3639141,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3bcb90c518f1af29:0xcce594ffcc57ef98!2m2!1d78.4463159!2d17.4374754?entry=ttu&g_ep=EgoyMDI1MDcwOS4wIKXMDSoASAFQAw%3D%3D"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="whitespace-pre-line hover:text-accent2 transition-colors cursor-pointer"
-                >
-                Plot No 4, HMDA Maitrivanam,<br />
-                Satyam Theatre Rd, beside Blue Fox Hotel,<br />
-                Kumar Basti, Srinivasa Nagar,<br />
-                Ameerpet, Hyderabad, Telangana 500038
-                </a>
-                </div>        
-                  <div className="flex items-center gap-3">
-                    <Phone className="w-5 h-5 text-primary" />
-                    <a 
-                      href={`tel:${hospitalInfo.phone.replace(/\D/g, '')}`}
-                      className="text-accent2 hover:text-accent5 transition-colors font-medium"
-                    >
-                      {hospitalInfo.phone}
-                    </a>
-                  </div>
-{/* 
-                  <div className="flex items-start gap-3 pt-2">
-                    <Calendar className="w-5 h-5 mt-0.5 text-primary flex-shrink-0" />
-                    <p className="whitespace-pre-line">{hospitalInfo.hours}</p>
-                  </div> */}
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.3 }}
-                  className="pt-2 flex flex-col sm:flex-row gap-3"
-                >
-                  <motion.a
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2 }}
+                className="space-y-3"
+              >
+                {options.map((option, index) => (
+                  <motion.div
+                    key={index}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    href={`tel:${hospitalInfo.phone.replace(/\D/g, '')}`}
-                    className="flex-1 bg-gradient-to-r from-primary to-accent2 text-white py-2.5 rounded-lg font-medium flex items-center justify-center gap-2"
+                    className="w-full flex items-center gap-4 p-4 rounded-lg border border-gray-200 hover:border-primary transition-all cursor-pointer"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 + index * 0.1 }}
+                    onClick={() => handleOptionClick(option)}
                   >
-                    <Phone className="w-4 h-4" />
-                    Call Now
-                  </motion.a>
-                  
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={() => setIsOpen(false)}
-                    className="flex-1 border border-gray-300 text-gray-700 py-2.5 rounded-lg font-medium hover:bg-gray-50 transition-colors"
-                  >
-                    Close
-                  </motion.button>
-                </motion.div>
-              </div>
-            </motion.div>
+                    <div className="bg-primary/10 p-2 rounded-full">
+                      {option.icon}
+                    </div>
+                    <div className="text-left">
+                      <p className="font-medium text-gray-800">{option.name}</p>
+                      <p className="text-sm text-gray-500">{option.type}</p>
+                    </div>
+                    <ChevronRight className="ml-auto h-5 w-5 text-gray-400" />
+                  </motion.div>
+                ))}
+              </motion.div>
+            </div>
           </motion.div>
-        )}
-      </AnimatePresence>
+        </motion.div>
+      )}
+    </AnimatePresence>
+        
       {/* Floating Background Elements */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         {[...Array(15)].map((_, i) => (
@@ -240,149 +291,153 @@ export default function HomePage() {
       </div>
 
       {/* Navigation */}
-      <motion.nav
-  initial={{ y: -100, opacity: 0 }}
-  animate={{ y: 0, opacity: 1 }}
-  transition={{ duration: 0.8, type: "spring", stiffness: 100 }}
-  className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b-2 border-accent2 shadow-lg"
->
-  <div className="container mx-auto px-10 sm:py-1">
-    <div className="flex items-center justify-between">
-      {/* Logo - Made more dominant */}
-      <motion.div
-        initial={{ x: -50, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ delay: 0.2 }}
-        className="flex items-center"
-      >
-        <img
-          src="logo.png"
-          alt="Mr. & Mrs. Kids Logo"
-          className="w-32 h-36 sm:w-40 sm:h-44 md:w-48 md:h-52 lg:w-56 lg:h-60 xl:w-64 xl:h-68 object-contain"
-        />
-      </motion.div>
-
-      {/* Mobile Menu Button */}
-      <div className="md:hidden">
-  {/* First Line - Book Appointment Button */}
-  <motion.div 
-    whileHover={{ scale: 1.05 }} 
-    whileTap={{ scale: 0.95 }}
-    className="mb-2" // Add margin bottom for spacing
-  >
-    <a href="#appointment">
-      <Button className="bg-gradient-to-r from-primary to-accent2 hover:from-accent4 hover:to-accent5 text-white rounded-full px-4 py-2 w-full">
-        <Calendar className="w-4 h-4 mr-1" />
-        Book Appointment
-      </Button>
-    </a>
-  </motion.div>
-
-  {/* Second Line - Social Icons */}
-  <div className="flex justify-center space-x-4">
-    {/* Instagram */}
-    <motion.a
-      href="https://www.instagram.com/mr.mrs_kidsdoc/"
-      target="_blank"
-      rel="noopener noreferrer"
-      whileHover={{ scale: 1.1 }}
-      whileTap={{ scale: 0.9 }}
-      className="bg-gradient-to-br from-purple-600 to-pink-600 p-2 rounded-full"
-    >
-      <FaInstagram className="w-5 h-5 text-white" />
-    </motion.a>
-
-    {/* YouTube */}
-    <motion.a
-      href="https://www.youtube.com/@mr.mrs_kidsdoc"
-      target="_blank"
-      rel="noopener noreferrer"
-      whileHover={{ scale: 1.1 }}
-      whileTap={{ scale: 0.9 }}
-      className="bg-red-600 p-2 rounded-full"
-    >
-      <FaYoutube className="w-5 h-5 text-white" />
-    </motion.a>
-  </div>
-</div>
-
-      {/* Desktop Menu */}
-      <motion.div
-  initial={{ x: 50, opacity: 0 }}
-  animate={{ x: 0, opacity: 1 }}
-  transition={{ delay: 0.2 }}
-  className="hidden md:flex items-center space-x-4 lg:space-x-6"
->
-  {/* Navigation Links */}
-  {["Home", "About Us", "Services"].map((item, index) => (
-    <motion.div
-      key={item}
-      initial={{ y: -20, opacity: 0 }}
+<motion.nav
+      initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ delay: 0.3 + index * 0.1 }}
+      transition={{ duration: 0.8, type: "spring", stiffness: 100 }}
+      className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b-2 border-accent2 shadow-lg"
     >
-      <Link
-        href={`#${item.toLowerCase().replace(" ", "-")}`}
-        className="text-gray-700 hover:text-primary transition-all duration-300 font-medium"
-      >
-        <motion.span whileHover={{ scale: 1.05 }} className="block">
-          {item}
-        </motion.span>
-      </Link>
-    </motion.div>
-  ))}
+      <div className="container mx-auto px-4 sm:px-6">
+        <div className="flex items-center justify-between py-2">
+          {/* Logo - Extra large and dominant */}
+          <motion.div
+            initial={{ x: -50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="flex-shrink-0"
+          >
+            <img
+              src="/logo.png"
+              alt="Mr. & Mrs. Kids Logo"
+              className="w-48 h-52 sm:w-56 sm:h-60 md:w-64 md:h-72 lg:w-72 lg:h-80 xl:w-80 xl:h-88 object-contain"
+              style={{
+                minWidth: '192px',
+                minHeight: '208px',
+                maxHeight: '130px' // Controls mobile height
+              }}
+            />
+          </motion.div>
 
-  {/* Social Icons */}
-  <motion.div
-    initial={{ scale: 0 }}
-    animate={{ scale: 1 }}
-    transition={{ delay: 0.6, type: "spring" }}
-    className="flex space-x-3"
-  >
-    {/* Instagram */}
-    <motion.a
-      href="https://www.instagram.com/mr.mrs_kidsdoc/"
-      target="_blank"
-      rel="noopener noreferrer"
-      whileHover={{ scale: 1.1, y: -2 }}
-      whileTap={{ scale: 0.9 }}
-      className="bg-gradient-to-br from-purple-600 to-pink-600 p-2 rounded-full text-white"
-    >
-      <FaInstagram className="w-4 h-4" />
-    </motion.a>
+          {/* Mobile Menu - Stacked vertically */}
+          <div className="md:hidden flex flex-col items-end space-y-2 ml-4">
+            {/* Social Icons - First Line */}
+            <motion.div 
+              className="flex space-x-3"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3 }}
+            >
+              <motion.a
+                href="https://www.instagram.com/mr.mrs_kidsdoc/"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                className="bg-gradient-to-br from-purple-600 to-pink-600 p-2 rounded-full flex items-center justify-center px-5"
+              >
+                <FaInstagram className="w-5 h-5 text-white" />
+              </motion.a>
 
-    {/* YouTube */}
-    <motion.a
-      href="https://www.youtube.com/@mr.mrs_kidsdoc"
-      target="_blank"
-      rel="noopener noreferrer"
-      whileHover={{ scale: 1.1, y: -2 }}
-      whileTap={{ scale: 0.9 }}
-      className="bg-red-600 p-2 rounded-full text-white"
-    >
-      <FaYoutube className="w-4 h-4" />
-    </motion.a>
-  </motion.div>
+              <motion.a
+                href="https://www.youtube.com/@mr.mrs_kidsdoc"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                className="bg-red-600 p-2 rounded-full flex items-center justify-center px-5"
+              >
+                <FaYoutube className="w-5 h-5 text-white"/>
+              </motion.a>
+            </motion.div>
 
-  {/* Appointment Button */}
-  <motion.div
-    initial={{ scale: 0 }}
-    animate={{ scale: 1 }}
-    transition={{ delay: 0.8, type: "spring" }}
-    whileHover={{ scale: 1.05 }}
-    whileTap={{ scale: 0.95 }}
-  >
-    <a href="#appointment">
-      <Button className="bg-gradient-to-r from-primary to-accent2 hover:from-accent4 hover:to-accent5 text-white rounded-full px-4 lg:px-6 py-2 shadow-lg hover:shadow-xl transition-all duration-300">
-        <Calendar className="w-4 h-4 mr-2" />
-        Book Appointment
-      </Button>
-    </a>
-  </motion.div>
-</motion.div>
-    </div>
-  </div>
-</motion.nav>
+            {/* Appointment Button - Second Line */}
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4 }}
+            >
+                <Button onClick={()=>{setIsOpen(true)}} className="bg-gradient-to-r from-primary to-accent2 hover:from-accent4 hover:to-accent5 text-white rounded-full px-4 py-2 text-sm whitespace-nowrap">
+                  <Calendar className="w-4 h-4 mr-2" />
+                  Book Now
+                </Button>
+            </motion.div>
+          </div>
+
+          {/* Desktop Menu */}
+          <motion.div
+            initial={{ x: 50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="hidden md:flex items-center space-x-4 lg:space-x-6"
+          >
+            {/* Navigation Links */}
+            {["Home", "About Us", "Services"].map((item, index) => (
+              <motion.div
+                key={item}
+                initial={{ y: -20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.3 + index * 0.1 }}
+              >
+                <Link
+                  href={`#${item.toLowerCase().replace(" ", "-")}`}
+                  className="text-gray-700 hover:text-primary transition-all duration-300 font-medium"
+                >
+                  <motion.span whileHover={{ scale: 1.05 }} className="block">
+                    {item}
+                  </motion.span>
+                </Link>
+              </motion.div>
+            ))}
+
+            {/* Social Icons */}
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.6, type: "spring" }}
+              className="flex space-x-3"
+            >
+              <motion.a
+                href="https://www.instagram.com/mr.mrs_kidsdoc/"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.1, y: -2 }}
+                whileTap={{ scale: 0.9 }}
+                className="bg-gradient-to-br from-purple-600 to-pink-600 p-2 rounded-full text-white"
+              >
+                <FaInstagram className="w-4 h-4" />
+              </motion.a>
+
+              <motion.a
+                href="https://www.youtube.com/@mr.mrs_kidsdoc"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.1, y: -2 }}
+                whileTap={{ scale: 0.9 }}
+                className="bg-red-600 p-2 rounded-full text-white"
+              >
+                <FaYoutube className="w-4 h-4" />
+              </motion.a>
+            </motion.div>
+
+            {/* Appointment Button */}
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.8, type: "spring" }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+                <Button onClick={()=>{setIsOpen(true)}} className="bg-gradient-to-r from-primary to-accent2 hover:from-accent4 hover:to-accent5 text-white rounded-full px-4 lg:px-6 py-2 shadow-lg hover:shadow-xl transition-all duration-300">
+                  <Calendar className="w-4 h-4 mr-2" />
+                  Book Appointment
+                </Button>
+            </motion.div>
+          </motion.div>
+        </div>
+      </div>
+    </motion.nav>
 
       {/* Hero Section */}
       <section id="home" className="relative py-10 sm:py-16 lg:py-20 overflow-hidden bg-white">
@@ -653,9 +708,9 @@ export default function HomePage() {
             {[
             {
               icon: <Stethoscope className="w-6 h-6 sm:w-8 sm:h-8" />,
-              number: "Day 1 - 18 Years",
+              number: "0 - 18 Yrs",
               text: "Comprehensive Care",
-              color: "green"
+              color: "yellow"
             },
               {
                 icon: <BriefcaseMedical className="w-6 h-6 sm:w-8 sm:h-8" />,
@@ -756,10 +811,10 @@ export default function HomePage() {
               viewport={{ once: true }}
               className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto"
             >
-              Two amazing doctors who've dedicated their lives to making healthcare fun, safe, and memorable for your
+              Two amazing doctors who've dedicated their lives to making healthcare fun, safe, and memorable for
               children and families.
             </motion.p>
-          </motion.div>
+          </motion.div> 
           <div className="grid lg:grid-cols-2 gap-8 sm:gap-12">
             {/* Mr. Kids */}
             <motion.div
@@ -1254,7 +1309,7 @@ export default function HomePage() {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          <a href="#appointment">
+          <a>
           <Button 
           size="lg"
           className="bg-white text-indigo-600 hover:bg-gray-50 rounded-full px-6 sm:px-8 py-3 sm:py-4 shadow-lg hover:shadow-xl transition-all duration-300 font-medium"

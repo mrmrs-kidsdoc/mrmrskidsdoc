@@ -1,6 +1,6 @@
 "use client"
 
-import { JSX, useState } from "react"
+import { JSX, useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import {
@@ -10,20 +10,51 @@ import {
   Hospital,
   CircleUser
 } from "lucide-react"
+import { useSearchParams } from "next/navigation"
 
 export function AppointmentForm(): JSX.Element {
+  const searchParams = useSearchParams()
   const [activeTab, setActiveTab] = useState<"clinic" | "online">("clinic")
+  const [selectedDoctor, setSelectedDoctor] = useState(0)
 
-  const hospitalInfo = {
-    doctor: "Dr. Rishivardhan Reddy",
-    name: "Aster Prime Hospital - Hyderabad",
-    address: `Plot No 4, HMDA Maitrivanam,
+    useEffect(() => {
+    const tab = searchParams.get('tab')
+    const doctor = searchParams.get('doctor')
+    
+    if (tab === 'online' || tab === 'clinic') {
+      setActiveTab(tab)
+    }
+    
+    if (doctor === '0' || doctor === '1') {
+      setSelectedDoctor(parseInt(doctor))
+    }
+  }, [searchParams])
+
+  const hospitalInfo = [
+    {
+      doctor: "Dr. Rishivardhan Reddy",
+      name: "Aster Prime Hospital - Hyderabad",
+      address: `Plot No 4, HMDA Maitrivanam,
 Satyam Theatre Rd, beside Blue Fox Hotel,
 Kumar Basti, Srinivasa Nagar,
 Ameerpet, Hyderabad, Telangana 500038`,
-    phone: "+91 40 4959 4959",
-    onlineBooking: "https://www.connect2clinic.com/doctor/rishivardhan-reddy"
-  }
+      phone: "+914049594959",
+      onlineBooking: "https://www.connect2clinic.com/doctor/rishivardhan-reddy",
+      mapLink: "https://www.google.com/maps/dir//Plot+No+4,+HMDA+Maitrivanam",
+      hrefClinic:"book-clinic-rishi",
+      hrefOnline:"book-online-rishi"
+    },
+    {
+      doctor: "Dr. Sahithi Reddy Avula",
+      name: "Paramitha women & children's Hospital",
+      address: `Main Road Madinaguda, Miyapur, Hyderabad, Telangana 500049`,
+      phone: "+9109059705797",
+      onlineBooking: "https://www.connect2clinic.com/doctor/sahithi-reddy",
+      mapLink: "https://www.google.com/maps/dir//Paramitha+Hospital",
+      hrefClinic:"book-clinic-sahithi",
+      hrefOnline:"book-online-sahithi"
+    }
+  ]
 
   return (
     <section className="py-16 sm:py-20 bg-gradient-to-br from-pink-50 to-purple-50 relative overflow-hidden">
@@ -43,8 +74,27 @@ Ameerpet, Hyderabad, Telangana 500038`,
             Schedule an Appointment
           </h2>
           <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto">
-            Choose your preferred way to book with Dr. Rishivardhan Reddy
+            Choose your preferred doctor and consultation type
           </p>
+        </div>
+
+        {/* Doctor Selection */}
+        <div className="flex justify-center mb-6 gap-4">
+          {hospitalInfo.map((doctor, index) => (
+            <button
+              key={index}
+              onClick={() => setSelectedDoctor(index)}
+              className={`px-6 py-2 rounded-full transition-all ${selectedDoctor === index
+                ? "bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-inner"
+                : "bg-white text-gray-600 hover:text-gray-800 border border-gray-200"
+                }`}
+            >
+              <span className="flex items-center">
+                <CircleUser className="w-6 h-6 mr-2" />
+                {doctor.doctor}
+              </span>
+            </button>
+          ))}
         </div>
 
         {/* Tabs */}
@@ -81,38 +131,49 @@ Ameerpet, Hyderabad, Telangana 500038`,
 
         {/* Conditional Content */}
         {activeTab === "clinic" ? (
-          <div className="grid md:grid-cols-1 gap-8 max-w-6xl mx-auto">
+                    <div 
+            className="grid md:grid-cols-1 gap-8 max-w-6xl mx-auto" 
+            id={hospitalInfo[selectedDoctor].hrefClinic}
+            ref={(el) => {
+              // This helps with initial scroll positioning
+              if (el && searchParams.get('scroll') === 'true') {
+                setTimeout(() => {
+                  el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                }, 300)
+              }
+            }}
+          >
             <Card className="shadow-2xl border-2 border-blue-200 hover:border-blue-300 transition-all duration-300 animate-slideInLeft text-center">
               <CardContent className="p-6 sm:p-8">
                 <h3 className="text-2xl font-bold text-gray-800 mb-6 flex items-center justify-center">
                   <CircleUser className="w-6 h-6 text-blue-500 mr-2" />
-                  {hospitalInfo.doctor}
+                  {hospitalInfo[selectedDoctor].doctor}
                 </h3>
                 <h3 className="text-2xl font-bold text-gray-800 mb-6 flex items-center justify-center">
                   <Hospital className="w-6 h-6 text-blue-500 mr-2" />
-                  {hospitalInfo.name}
+                  {hospitalInfo[selectedDoctor].name}
                 </h3>
 
                 <div className="space-y-4 flex flex-col items-center">
                   <div className="flex items-start gap-3 max-w-md">
                     <MapPin className="w-5 h-5 mt-0.5 text-blue-500 flex-shrink-0" />
                     <a
-                      href="https://www.google.com/maps/dir//Plot+No+4,+HMDA+Maitrivanam,+Satyam+Theatre+Rd,+beside+Blue+Fox+Hotel,+Kumar+Basti,+Srinivasa+Nagar,+Ameerpet,+Hyderabad,+Telangana+500038/@17.4374585,78.3639141,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3bcb90c518f1af29:0xcce594ffcc57ef98!2m2!1d78.4463159!2d17.4374754?entry=ttu"
+                      href={hospitalInfo[selectedDoctor].mapLink}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="whitespace-pre-line hover:text-blue-600 transition-colors cursor-pointer text-center"
                     >
-                      {hospitalInfo.address}
+                      {hospitalInfo[selectedDoctor].address}
                     </a>
                   </div>
 
                   <div className="flex items-center gap-3">
                     <Phone className="w-5 h-5 text-blue-500" />
                     <a
-                      href={`tel:${hospitalInfo.phone.replace(/\D/g, "")}`}
+                      href={`tel:${hospitalInfo[selectedDoctor].phone.replace(/\D/g, "")}`}
                       className="text-blue-600 hover:text-blue-800 transition-colors font-medium"
                     >
-                      {hospitalInfo.phone}
+                      {hospitalInfo[selectedDoctor].phone}
                     </a>
                   </div>
                 </div>
@@ -123,7 +184,7 @@ Ameerpet, Hyderabad, Telangana 500038`,
                     className="w-full bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-600 hover:to-teal-500 text-white py-3 rounded-lg font-medium"
                   >
                     <a
-                      href="https://www.google.com/maps/dir//Plot+No+4,+HMDA+Maitrivanam,+Satyam+Theatre+Rd,+beside+Blue+Fox+Hotel,+Kumar+Basti,+Srinivasa+Nagar,+Ameerpet,+Hyderabad,+Telangana+500038/@17.4374585,78.3639141,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3bcb90c518f1af29:0xcce594ffcc57ef98!2m2!1d78.4463159!2d17.4374754?entry=ttu"
+                      href={hospitalInfo[selectedDoctor].mapLink}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -137,7 +198,7 @@ Ameerpet, Hyderabad, Telangana 500038`,
                     variant="outline"
                     className="w-full border-blue-500 text-blue-600 hover:bg-blue-50 hover:text-blue-700 py-3 rounded-lg font-medium"
                   >
-                    <a href={`tel:${hospitalInfo.phone.replace(/\D/g, "")}`}>
+                    <a href={`tel:${hospitalInfo[selectedDoctor].phone.replace(/\D/g, "")}`}>
                       <Phone className="w-4 h-4 mr-2" />
                       Call Clinic Now
                     </a>
@@ -147,8 +208,17 @@ Ameerpet, Hyderabad, Telangana 500038`,
             </Card>
           </div>
         ) : (
-          <Card className="shadow-2xl border-2 border-purple-200 hover:border-purple-300 transition-all duration-300 animate-slideInRight">
-            <CardContent className="p-8 text-center">
+          <Card 
+            id={hospitalInfo[selectedDoctor].hrefOnline}
+            className="shadow-2xl border-2 border-purple-200 hover:border-purple-300 transition-all duration-300 animate-slideInRight"
+            ref={(el) => {
+              if (el && searchParams.get('scroll') === 'true') {
+                setTimeout(() => {
+                  el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                }, 300)
+              }
+            }}
+          > <CardContent className="p-8 text-center">
               <div className="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -170,7 +240,7 @@ Ameerpet, Hyderabad, Telangana 500038`,
                 Online Video Consultation
               </h3>
               <p className="text-gray-600 mb-6">
-                Book a secure video consultation with <b>{hospitalInfo.doctor}</b> through our trusted partner platform.
+                Book a secure video consultation with <b>{hospitalInfo[selectedDoctor].doctor}</b> through our trusted partner platform.
               </p>
 
               <Button
@@ -178,7 +248,7 @@ Ameerpet, Hyderabad, Telangana 500038`,
                 className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white rounded-full px-8 py-3 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
               >
                 <a
-                  href={hospitalInfo.onlineBooking}
+                  href={hospitalInfo[selectedDoctor].onlineBooking}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
