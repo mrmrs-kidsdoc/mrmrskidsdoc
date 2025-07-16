@@ -113,7 +113,7 @@ export default function HomePage() {
   const [selectedDoctor, setSelectedDoctor] = useState(0);
 
    const doctors = [
-  { name: "Dr. Ridhivardhan Reddy" },
+  { name: "Dr. Rishivardhan Reddy" },
   { name: "Dr. Sahithi Reddy" },
 ];
 
@@ -148,10 +148,10 @@ const handleOptionClick = ({
   type,
 }: {
   doctor: string;
-  type: "In Person" | "Video Consult";
+  type: "In Person" | "Video Consultation";
 }) => {
   const doctorIndex = doctor.includes("Sahithi") ? 1 : 0;
-  const tab = type === "Video Consult" ? "online" : "clinic";
+  const tab = type === "Video Consultation" ? "online" : "clinic";
 
   const url = new URL(window.location.href);
   url.searchParams.set("doctor", doctorIndex.toString());
@@ -234,11 +234,11 @@ const handleOptionClick = ({
                     In Person
                   </button>
                   <button
-                    onClick={() => handleOptionClick({ doctor: doctor.name, type: "Video Consult" })}
+                    onClick={() => handleOptionClick({ doctor: doctor.name, type: "Video Consultation" })}
                     className="flex items-center gap-2 px-3 py-2 rounded-full border border-gray-300 hover:border-primary hover:bg-primary/10 transition text-sm"
                   >
                     <Video className="h-4 w-4" />
-                    Video Consult
+                    Video Consultation
                   </button>
                 </div>
               </motion.div>
