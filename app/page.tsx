@@ -33,7 +33,9 @@ import {
   Linkedin,
   Brain,
   Hospital,
-  ChevronRight
+  ChevronRight,
+  Building,
+  Calendar1
 } from 'lucide-react';
 import Image from "next/image";
 import Link from "next/link";
@@ -42,13 +44,10 @@ import { TestimonialsSection } from "@/components/testimonials";
 import { GoogleBusinessProfile } from "@/components/google-business";
 import { motion, easeInOut, easeOut , AnimatePresence} from "framer-motion";
 import { useState, useEffect, JSX } from "react";
+
 interface ConsultationOption {
-  name: string;
+  doctor: string;
   type: string;
-  icon: JSX.Element;
-  href: string;
-  isOnline: boolean;
-  doctorIndex: number;
 }
 
 interface ConsultationModalProps {
@@ -113,40 +112,10 @@ export default function HomePage() {
   const [activeTab, setActiveTab] = useState<"clinic" | "online">("clinic");
   const [selectedDoctor, setSelectedDoctor] = useState(0);
 
-   const options: ConsultationOption[] = [
-     {
-       name: "Dr. Rishivardhan Reddy Clinic",
-       type: "In-person",
-       icon: <Home className="w-5 h-5 text-primary" />,
-       href: "#book-clinic-rishi",
-       isOnline: false,
-       doctorIndex: 0,
-     },
-     {
-       name: "Dr. Rishivardhan Reddy Online",
-       type: "Video Consultation",
-       icon: <Video className="w-5 h-5 text-primary" />,
-       href: "#book-online-rishi",
-       isOnline: true,
-       doctorIndex: 0,
-     },
-     {
-       name: "Dr. Sahithi Reddy Avula Clinic",
-       type: "In-person",
-       icon: <Home className="w-5 h-5 text-primary" />,
-       href: "#book-clinic-sahithi",
-       isOnline: false,
-       doctorIndex: 1,
-     },
-     {
-       name: "Dr. Sahithi Reddy Avula Online",
-       type: "Video Consultation",
-       icon: <Video className="w-5 h-5 text-primary" />,
-       href: "#book-online-sahithi",
-       isOnline: true,
-       doctorIndex: 1,
-     },
-   ];
+   const doctors = [
+  { name: "Dr. Ridhivardhan Reddy" },
+  { name: "Dr. Sahithi Reddy" },
+];
 
      const hospitalInfo = [
     {
@@ -163,100 +132,124 @@ Ameerpet, Hyderabad, Telangana 500038`,
       hrefOnline:"book-online-rishi"
     },
     {
-      doctor: "Dr. Sahithi Reddy Avula",
+      doctor: "Dr. Sahithi Reddy",
       name: "Paramitha women & children's Hospital",
       address: `Main Road Madinaguda, Miyapur, Hyderabad, Telangana 500049`,
       phone: "+9109059705797",
-      onlineBooking: "https://www.connect2clinic.com/doctor/sahithi-reddy",
+      onlineBooking: "https://www.connect2clinic.com/doctor/",
       mapLink: "https://www.google.com/maps/dir//Paramitha+Hospital",
       hrefClinic:"book-clinic-sahithi",
       hrefOnline:"book-online-sahithi"
     }
   ]
+ 
+const handleOptionClick = ({
+  doctor,
+  type,
+}: {
+  doctor: string;
+  type: "In Person" | "Video Consult";
+}) => {
+  const doctorIndex = doctor.includes("Sahithi") ? 1 : 0;
+  const tab = type === "Video Consult" ? "online" : "clinic";
 
-const handleOptionClick = (option: ConsultationOption) => {
-  setIsOpen(false);
-  // Update URL with the correct parameters
   const url = new URL(window.location.href);
-  url.hash = '#appointment';
-  url.searchParams.set('tab', option.isOnline ? 'online' : 'clinic');
-  url.searchParams.set('doctor', option.doctorIndex.toString());
-  url.searchParams.set('scroll', 'true');
-  
-  window.location.href = url.toString();
+  url.searchParams.set("doctor", doctorIndex.toString());
+  url.searchParams.set("tab", tab);
+  url.searchParams.set("scroll", "true");
+  window.history.pushState({}, "", url.toString());
+
+  setSelectedDoctor(doctorIndex);
+  setActiveTab(tab);
+  setIsOpen(false); // close the modal if needed
+
+  // Revert URL back to domain after 5 seconds
+  setTimeout(() => {
+    const cleanUrl = new URL(window.location.origin);
+    window.history.pushState({}, "", cleanUrl.toString());
+  }, 2000);
 };
+
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-accent1 via-accent3 to-accent8 overflow-x-hidden font-sans">
       {/* Modal Dialog */}
-        <AnimatePresence>
-      {isOpen && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.2 }}
-          className="fixed inset-0 bg-black/30 z-50 flex items-center justify-center p-4"
+<AnimatePresence>
+  {isOpen && (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.2 }}
+      className="fixed inset-0 bg-black/30 z-50 flex items-center justify-center p-4"
+      onClick={() => setIsOpen(false)}
+    >
+      <motion.div
+        initial={{ y: 20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        exit={{ y: 20, opacity: 0 }}
+        transition={{ type: "spring", damping: 25, stiffness: 300 }}
+        className="bg-white rounded-xl max-w-md w-full p-6 shadow-2xl relative mx-4"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
           onClick={() => setIsOpen(false)}
+          className="absolute top-3 right-3 p-1 rounded-full hover:bg-gray-100 transition-colors"
+          aria-label="Close"
         >
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: 20, opacity: 0 }}
-            transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="bg-white rounded-xl max-w-md w-full p-6 shadow-2xl relative mx-4"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              onClick={() => setIsOpen(false)}
-              className="absolute top-3 right-3 p-1 rounded-full hover:bg-gray-100 transition-colors"
-              aria-label="Close"
-            >
-              <X className="w-5 h-5 text-gray-500" />
-            </button>
+          <X className="w-5 h-5 text-gray-500" />
+        </button>
 
-            <div className="space-y-5">
-              <motion.h3
+        <div className="space-y-5">
+          <motion.h3
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-2xl font-bold text-gray-800 text-center"
+          >
+            Book Consultation
+          </motion.h3>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="space-y-4"
+          >
+            {doctors.map((doctor, i) => (
+              <motion.div
+                key={i}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-                className="text-2xl font-bold text-gray-800 text-center"
+                transition={{ delay: 0.2 + i * 0.1 }}
+                className="border border-gray-200 p-4 rounded-lg space-y-3"
               >
-                Book Consultation
-              </motion.h3>
-
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.2 }}
-                className="space-y-3"
-              >
-                {options.map((option, index) => (
-                  <motion.div
-                    key={index}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="w-full flex items-center gap-4 p-4 rounded-lg border border-gray-200 hover:border-primary transition-all cursor-pointer"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 + index * 0.1 }}
-                    onClick={() => handleOptionClick(option)}
+                <p className="font-semibold text-gray-800 text-lg">{doctor.name}</p>
+                <div className="flex gap-4">
+                  <button
+                    onClick={() => handleOptionClick({ doctor: doctor.name, type: "In Person" })}
+                    className="flex items-center gap-2 px-3 py-2 rounded-full border border-gray-300 hover:border-primary hover:bg-primary/10 transition text-sm"
                   >
-                    <div className="bg-primary/10 p-2 rounded-full">
-                      {option.icon}
-                    </div>
-                    <div className="text-left">
-                      <p className="font-medium text-gray-800">{option.name}</p>
-                      <p className="text-sm text-gray-500">{option.type}</p>
-                    </div>
-                    <ChevronRight className="ml-auto h-5 w-5 text-gray-400" />
-                  </motion.div>
-                ))}
+                    <Building className="h-4 w-4" />
+                    In Person
+                  </button>
+                  <button
+                    onClick={() => handleOptionClick({ doctor: doctor.name, type: "Video Consult" })}
+                    className="flex items-center gap-2 px-3 py-2 rounded-full border border-gray-300 hover:border-primary hover:bg-primary/10 transition text-sm"
+                  >
+                    <Video className="h-4 w-4" />
+                    Video Consult
+                  </button>
+                </div>
               </motion.div>
-            </div>
+            ))}
           </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+        </div>
+      </motion.div>
+    </motion.div>
+  )}
+</AnimatePresence>
+
         
       {/* Floating Background Elements */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
@@ -296,7 +289,84 @@ const handleOptionClick = (option: ConsultationOption) => {
       className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b-2 border-accent2 shadow-lg"
     >
       <div className="container mx-auto px-5 sm:px-4">
-        <div className="flex items-center justify-between">
+        {/* Mobile Layout */}
+        <div className="md:hidden flex flex-col items-center py-2">
+          {/* Logo - Centered and dominant */}
+          <motion.div
+            initial={{ x: -50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="flex-shrink-0"
+          >
+          <img
+            src="/logo.png"
+            alt="Mr. & Mrs. Kids Logo"
+            className="w-30 h-30 sm:w-32 sm:h-32 object-contain"
+            style={{
+              minWidth: '120px',   // Reduced from 192px
+              minHeight: '120px',  // Reduced from 208px
+              maxHeight: '100px'   // Reduced from 130px
+            }}
+          />
+          </motion.div>
+            <div className="w-1/2 border-t border-red-900 mb-3"></div>
+              {/* Horizontal line above icons */}
+          {/* Social Icons and Book Button - Horizontal below logo */}
+<div className="flex flex-col items-end w-full">
+
+  <div className="flex items-center space-x-1.5 justify-between">
+    {/* Social Icons */}
+    <motion.div 
+      className="flex space-x-1.5 px-[-1]"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 0.3 }}
+    >
+      <motion.a
+        href="https://www.instagram.com/mr.mrs_kidsdoc/"
+        target="_blank"
+        rel="noopener noreferrer"
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        className="bg-gradient-to-br from-purple-600 to-pink-600 p-2 rounded-full flex items-center justify-center"
+      >
+        <FaInstagram className="w-5 h-5 text-white" />
+      </motion.a>
+
+      <motion.a
+        href="https://www.youtube.com/@mr.mrs_kidsdoc"
+        target="_blank"
+        rel="noopener noreferrer"
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        className="bg-red-600 p-2 rounded-full flex items-center justify-center"
+      >
+        <FaYoutube className="w-5 h-5 text-white"/>
+      </motion.a>
+    </motion.div>
+
+    {/* Appointment Button - Same size as social icons */}
+    <motion.div
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 0.9 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 0.4 }}
+      // className="px-[-1]"
+    >
+      <Button size={"icon"}
+        onClick={() => setIsOpen(true)} 
+        className="bg-gradient-to-r from-primary to-accent2 hover:from-accent4 hover:to-accent5 p-1 rounded-full flex items-center justify-center"
+      >
+        <Calendar1 className="w-1 h-1 text-white" />
+      </Button>
+    </motion.div>
+  </div>
+</div>
+        </div>
+
+        {/* Desktop Layout - Unchanged */}
+        <div className="hidden md:flex items-center justify-between">
           {/* Logo - Extra large and dominant */}
           <motion.div
             initial={{ x: -50, opacity: 0 }}
@@ -311,64 +381,17 @@ const handleOptionClick = (option: ConsultationOption) => {
               style={{
                 minWidth: '192px',
                 minHeight: '208px',
-                maxHeight: '130px' // Controls mobile height
+                maxHeight: '130px'
               }}
             />
           </motion.div>
-
-          {/* Mobile Menu - Stacked vertically */}
-          <div className="md:hidden flex flex-col items-end space-y-1 ml-2">
-            {/* Social Icons - First Line */}
-            <motion.div 
-              className="flex space-x-2"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3 }}
-            >
-              <motion.a
-                href="https://www.instagram.com/mr.mrs_kidsdoc/"
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                className="bg-gradient-to-br from-purple-600 to-pink-600 p-2 rounded-full flex items-center justify-center px-5"
-              >
-                <FaInstagram className="w-5 h-5 text-white" />
-              </motion.a>
-
-              <motion.a
-                href="https://www.youtube.com/@mr.mrs_kidsdoc"
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                className="bg-red-600 p-2 rounded-full flex items-center justify-center px-5"
-              >
-                <FaYoutube className="w-5 h-5 text-white"/>
-              </motion.a>
-            </motion.div>
-
-            {/* Appointment Button - Second Line */}
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
-            >
-                <Button onClick={()=>{setIsOpen(true)}} className="bg-gradient-to-r from-primary to-accent2 hover:from-accent4 hover:to-accent5 text-white rounded-full px-4 py-2 text-sm whitespace-nowrap">
-                  <Calendar className="w-4 h-4 mr-2" />
-                  Book Now
-                </Button>
-            </motion.div>
-          </div>
 
           {/* Desktop Menu */}
           <motion.div
             initial={{ x: 50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className="hidden md:flex items-center space-x-4 lg:space-x-6"
+            className="flex items-center space-x-4 lg:space-x-6"
           >
             {/* Navigation Links */}
             {["Home", "About Us", "Services"].map((item, index) => (
@@ -529,7 +552,7 @@ const handleOptionClick = (option: ConsultationOption) => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6 }}
           >
-            Mr. and Mrs. Kids are here to make every checkup an adventure! With over {new Date().getFullYear() - 2013}+ years of combined
+            Mr. and Mrs. Kids Doc are here to make every checkup an adventure! With over {new Date().getFullYear() - 2013}+ years of
             experience, we turn doctor visits into fun, memorable experiences for your little ones.
           </motion.p>
         </motion.div>
@@ -960,7 +983,7 @@ const handleOptionClick = (option: ConsultationOption) => {
                         <Heart className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                       </motion.div>
                     </motion.div>
-              <h3 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-2">Dr Sahithi Reddy Avula <br/><span className="text-yellow-500">(Mrs. Kids Doc)</span></h3>
+              <h3 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-2">Dr Sahithi Reddy <br/><span className="text-yellow-500">(Mrs. Kids Doc)</span></h3>
                   
                     <motion.p
                       animate={{ scale: [1, 1.05, 1] }}
@@ -1039,8 +1062,8 @@ const handleOptionClick = (option: ConsultationOption) => {
             viewport={{ once: true }}
             className="text-center mt-8 sm:mt-12"
           >
-            <div className="inline-flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4 bg-gradient-to-r from-accent1 to-accent3 rounded-full px-6 sm:px-8 py-4 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
-  <span className="text-gray-700 font-semibold text-xl sm:text-base">Follow our adventures on Social Media</span>
+            <div className="inline-flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4 bg-gradient-to-r from-accent1 to-accent3 rounded-full px-8 sm:px-8 py-4 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+  <span className="text-gray-700 font-bold text-sm sm:text-base">Follow our adventures on Social Media</span>
   <motion.div
     whileHover={{ scale: 1.05 }}
     whileTap={{ scale: 0.95 }}
@@ -1307,8 +1330,7 @@ const handleOptionClick = (option: ConsultationOption) => {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          <a>
-          <Button 
+          <Button onClick={()=>{setIsOpen(true)}}
           size="lg"
           className="bg-white text-indigo-600 hover:bg-gray-50 rounded-full px-6 sm:px-8 py-3 sm:py-4 shadow-lg hover:shadow-xl transition-all duration-300 font-medium"
           >
@@ -1316,7 +1338,6 @@ const handleOptionClick = (option: ConsultationOption) => {
           Book Appointment
           <ArrowRight className="w-5 h-5 ml-2" />
           </Button>
-          </a>
         </motion.div>
       </motion.div>
 
@@ -1685,7 +1706,7 @@ const handleOptionClick = (option: ConsultationOption) => {
           >
           {[
           { 
-          icon: <FaInstagram className="w-5 h-5" />, 
+          icon: <FaInstagram className="w-5 h-4" />, 
           color: "bg-gradient-to-br from-purple-500 to-pink-500",
           link: "https://www.instagram.com/mr.mrs_kidsdoc/" 
           },

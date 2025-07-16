@@ -46,7 +46,7 @@ Ameerpet, Hyderabad, Telangana 500038`,
       hrefOnline:"book-online-rishi"
     },
     {
-      doctor: "Dr. Sahithi Reddy Avula",
+      doctor: "Dr. Sahithi Reddy",
       name: "Paramitha women & children's Hospital",
       address: `Main Road Madinaguda, Miyapur, Hyderabad, Telangana 500049`,
       phone: "+9109059705797",
