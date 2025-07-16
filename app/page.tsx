@@ -309,8 +309,7 @@ const handleOptionClick = ({
             }}
           />
           </motion.div>
-            <div className="w-1/2 border-t border-red-900 mb-3"></div>
-              {/* Horizontal line above icons */}
+
           {/* Social Icons and Book Button - Horizontal below logo */}
 <div className="flex flex-col items-end w-full">
 
@@ -451,7 +450,7 @@ const handleOptionClick = ({
               whileTap={{ scale: 0.95 }}
             >
                 <Button onClick={()=>{setIsOpen(true)}} className="bg-gradient-to-r from-primary to-accent2 hover:from-accent4 hover:to-accent5 text-white rounded-full px-4 lg:px-6 py-2 shadow-lg hover:shadow-xl transition-all duration-300">
-                  <Calendar className="w-4 h-4 mr-2" />
+                  <Calendar1 className="w-4 h-4 mr-2" />
                   Book Appointment
                 </Button>
             </motion.div>
@@ -1334,7 +1333,7 @@ const handleOptionClick = ({
           size="lg"
           className="bg-white text-indigo-600 hover:bg-gray-50 rounded-full px-6 sm:px-8 py-3 sm:py-4 shadow-lg hover:shadow-xl transition-all duration-300 font-medium"
           >
-          <Calendar className="w-5 h-5 mr-2" />
+          <Calendar1 className="w-5 h-5 mr-2" />
           Book Appointment
           <ArrowRight className="w-5 h-5 ml-2" />
           </Button>
