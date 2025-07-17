@@ -1738,6 +1738,11 @@ const handleOptionClick = ({
           color: "bg-red-600",
           link: "https://www.youtube.com/@mr.mrs_kidsdoc" 
           },
+          { 
+          icon: <FaWhatsapp className="w-5 h-5" />, 
+          color: "bg-green-600",
+          link: "https://whatsapp.com/channel/0029Vb6eC8M29758MYBDpB1B"
+          },
           ].map((item, index) => (
           <motion.div
           key={index}
