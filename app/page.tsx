@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { FaInstagram, FaYoutube, FaFacebook, FaTwitter } from "react-icons/fa";
+import { FaInstagram, FaWhatsapp, FaYoutube, FaFacebook, FaTwitter } from "react-icons/fa";
 import {
   Heart,
   Star,
@@ -217,32 +217,34 @@ const handleOptionClick = ({
             className="space-y-4"
           >
             {doctors.map((doctor, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 + i * 0.1 }}
-                className="border border-gray-200 p-4 rounded-lg space-y-3"
-              >
-                <p className="font-semibold text-gray-800 text-lg">{doctor.name}</p>
-                <div className="flex gap-4">
-                  <button
-                    onClick={() => handleOptionClick({ doctor: doctor.name, type: "In Person" })}
-                    className="flex items-center gap-2 px-3 py-2 rounded-full border border-gray-300 hover:border-primary hover:bg-primary/10 transition text-sm"
-                  >
-                    <Building className="h-4 w-4" />
-                    In Person
-                  </button>
-                  <button
-                    onClick={() => handleOptionClick({ doctor: doctor.name, type: "Video Consultation" })}
-                    className="flex items-center gap-2 px-3 py-2 rounded-full border border-gray-300 hover:border-primary hover:bg-primary/10 transition text-sm"
-                  >
-                    <Video className="h-4 w-4" />
-                    Video Consultation
-                  </button>
-                </div>
-              </motion.div>
-            ))}
+  <motion.div
+    key={i}
+    initial={{ opacity: 0, y: 10 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ delay: 0.2 + i * 0.1 }}
+    className={`border border-gray-200 p-4 rounded-lg space-y-3 ${
+      i === 0 ? 'bg-blue-300' : 'bg-pink-300'
+    }`}
+  >
+    <p className="font-semibold text-gray-800 text-lg">{doctor.name}</p>
+    <div className="flex gap-4">
+      <button
+        onClick={() => handleOptionClick({ doctor: doctor.name, type: "In Person" })}
+        className="flex items-center gap-2 px-3 py-2 rounded-full border border-gray-600 hover:border-primary hover:bg-primary/10 transition text-sm"
+      >
+        <Building className="h-4 w-4" />
+        In Person
+      </button>
+      <button
+        onClick={() => handleOptionClick({ doctor: doctor.name, type: "Video Consultation" })}
+        className="flex items-center gap-2 px-3 py-2 rounded-full border border-gray-600 hover:border-primary hover:bg-primary/10 transition text-sm"
+      >
+        <Video className="h-4 w-4" />
+        Video Consultation
+      </button>
+    </div>
+  </motion.div>
+))}
           </motion.div>
         </div>
       </motion.div>
@@ -342,6 +344,17 @@ const handleOptionClick = ({
       >
         <FaYoutube className="w-5 h-5 text-white"/>
       </motion.a>
+
+      <motion.a
+        href="https://whatsapp.com/channel/0029Vb6eC8M29758MYBDpB1B"
+        target="_blank"
+        rel="noopener noreferrer"
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        className="bg-green-500 p-2 rounded-full flex items-center justify-center"
+      >
+        <FaWhatsapp className="w-5 h-5 text-white" />
+      </motion.a>
     </motion.div>
 
     {/* Appointment Button - Same size as social icons */}
@@ -438,6 +451,17 @@ const handleOptionClick = ({
                 className="bg-red-600 p-2 rounded-full text-white"
               >
                 <FaYoutube className="w-4 h-4" />
+              </motion.a>
+
+               <motion.a
+                href="https://whatsapp.com/channel/0029Vb6eC8M29758MYBDpB1B"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.1, y: -2 }}
+                whileTap={{ scale: 0.9 }}
+                className="bg-green-600 p-2 rounded-full text-white"
+              >
+                <FaWhatsapp className="w-4 h-4" />
               </motion.a>
             </motion.div>
 
@@ -1071,13 +1095,13 @@ const handleOptionClick = ({
     <a href="https://www.instagram.com/mr.mrs_kidsdoc" target="_blank" rel="noopener noreferrer">
       <Button variant="outline" className="border-red-300 sm:ml-4 text-red-600 hover:bg-red-50 rounded-full">
         <FaInstagram className="w-4 h-4 mr-2" />
-        Mr & Mrs Kids
+        Mr . Mrs Kids Doc
       </Button>
     </a>
         <a href="https://www.youtube.com/@mr.mrs_kidsdoc" target="_blank" rel="noopener noreferrer">
       <Button variant="outline" className="border-red-300 text-red-600 hover:bg-red-50 rounded-full">
         <FaYoutube className="w-4 h-4 mr-2" />
-        Mr & Mrs Kids YT
+        Mr . Mrs Kids Doc
       </Button>
     </a>
   </motion.div>
