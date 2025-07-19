@@ -189,63 +189,67 @@ const handleOptionClick = ({
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: 20, opacity: 0 }}
         transition={{ type: "spring", damping: 25, stiffness: 300 }}
-        className="bg-white rounded-xl max-w-md w-full p-6 shadow-2xl relative mx-4"
+        className="bg-gradient-to-br from-blue-50 to-pink-50 rounded-3xl max-w-md w-full p-0.5 shadow-2xl relative mx-4"
         onClick={(e) => e.stopPropagation()}
       >
-        <button
-          onClick={() => setIsOpen(false)}
-          className="absolute top-3 right-3 p-1 rounded-full hover:bg-gray-100 transition-colors"
-          aria-label="Close"
-        >
-          <X className="w-5 h-5 text-gray-500" />
-        </button>
-
-        <div className="space-y-5">
-          <motion.h3
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-2xl font-bold text-gray-800 text-center"
+        <div className="bg-white rounded-3xl p-6 relative">
+          <button
+            onClick={() => setIsOpen(false)}
+            className="absolute top-4 right-4 p-1 rounded-full hover:bg-gray-100 transition-colors"
+            aria-label="Close"
           >
-            Book Consultation
-          </motion.h3>
+            <X className="w-5 h-5 text-gray-500" />
+          </button>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="space-y-4"
-          >
-            {doctors.map((doctor, i) => (
-  <motion.div
-    key={i}
-    initial={{ opacity: 0, y: 10 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ delay: 0.2 + i * 0.1 }}
-    className={`border border-gray-200 p-4 rounded-lg space-y-3 ${
-      i === 0 ? 'bg-blue-300' : 'bg-pink-300'
-    }`}
-  >
-    <p className="font-semibold text-gray-800 text-lg">{doctor.name}</p>
-    <div className="flex gap-4">
-      <button
-        onClick={() => handleOptionClick({ doctor: doctor.name, type: "In Person" })}
-        className="flex items-center gap-2 px-3 py-2 rounded-full border border-gray-600 hover:border-primary hover:bg-primary/10 transition text-sm"
-      >
-        <Building className="h-4 w-4" />
-        In Person
-      </button>
-      <button
-        onClick={() => handleOptionClick({ doctor: doctor.name, type: "Video Consultation" })}
-        className="flex items-center gap-2 px-3 py-2 rounded-full border border-gray-600 hover:border-primary hover:bg-primary/10 transition text-sm"
-      >
-        <Video className="h-4 w-4" />
-        Video Consultation
-      </button>
-    </div>
-  </motion.div>
-))}
-          </motion.div>
+          <div className="space-y-5">
+            <motion.h3
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="text-2xl font-bold text-gray-800 text-center"
+            >
+              Book Consultation
+            </motion.h3>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
+              className="space-y-4"
+            >
+              {doctors.map((doctor, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 + i * 0.1 }}
+                  className={`p-4 rounded-2xl space-y-3 ${
+                    i === 0 
+                      ? 'bg-gradient-to-r from-blue-100 to-blue-50 border border-blue-200' 
+                      : 'bg-gradient-to-r from-pink-100 to-pink-50 border border-pink-200'
+                  }`}
+                >
+                  <p className="font-semibold text-gray-800 text-lg">{doctor.name}</p>
+                  <div className="flex gap-4 justify-center">
+                    <button
+                      onClick={() => handleOptionClick({ doctor: doctor.name, type: "In Person" })}
+                      className="flex items-center gap-2 px-4 py-2 rounded-full border border-blue-300 bg-white hover:bg-blue-500 hover:text-white transition-all text-sm shadow-sm"
+                    >
+                      <Building className="h-4 w-4" />
+                      In Person
+                    </button>
+                    <button
+                      onClick={() => handleOptionClick({ doctor: doctor.name, type: "Video Consultation" })}
+                      className="flex items-center gap-2 px-4 py-2 rounded-full border border-pink-300 bg-white hover:bg-pink-500 hover:text-white transition-all text-sm shadow-sm"
+                    >
+                      <Video className="h-4 w-4" />
+                      Video Consultation
+                    </button>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
         </div>
       </motion.div>
     </motion.div>
@@ -552,21 +556,25 @@ const handleOptionClick = ({
             variants={item}
             className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-800 leading-tight title-font"
           >
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-            >
-              Where Little Smiles
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.5, type: "spring" }}
-              className="p-4 bg-gradient-to-r from-primary to-accent2 bg-clip-text text-transparent"
-            >
-              Meet Big Hearts
-            </motion.div>
+            <motion.div 
+  className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-3xl sm:text-4xl md:text-5xl font-bold"
+>
+<motion.div
+  initial={{ opacity: 0, y: 10, scale: 0.95 }}
+  animate={{ opacity: 1, y: 0, scale: 1 }}
+  transition={{ delay: 0.4, type: "spring", stiffness: 100 }}
+  className="w-full text-center"
+>
+  <div className="inline-block">
+    <h2 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold leading-tight">
+      <span className="text-primary">Where Little Smiles </span>
+      <span className="bg-gradient-to-r from-primary to-accent2 bg-clip-text text-transparent">
+        Meet Big Hearts
+      </span>
+    </h2>
+  </div>
+</motion.div>
+</motion.div>
           </motion.h1>
           <motion.p
             variants={item}
@@ -575,8 +583,7 @@ const handleOptionClick = ({
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6 }}
           >
-            Mr. and Mrs. Kids Doc are here to make every checkup an adventure! With over {new Date().getFullYear() - 2013}+ years of
-            experience, we turn doctor visits into fun, memorable experiences for your little ones.
+            Say goodbye to tearful checkups! Mr. & Mrs. Kids Doc bring {new Date().getFullYear() - 2013} years of pediatric magic to turn doctor visits into exciting adventures your children will love
           </motion.p>
         </motion.div>
         {/* <motion.div
@@ -1085,23 +1092,29 @@ const handleOptionClick = ({
             viewport={{ once: true }}
             className="text-center mt-8 sm:mt-12"
           >
-            <div className="inline-flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4 bg-gradient-to-r from-accent1 to-accent3 rounded-full px-8 sm:px-8 py-4 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
-  <span className="text-gray-700 font-bold text-sm sm:text-base">Follow our adventures on Social Media</span>
+<div className="flex flex-col items-center bg-gradient-to-r from-accent1 to-accent3 rounded-full px-6 py-4 shadow-lg hover:shadow-xl transition-all duration-300 w-fit mx-auto">
+  <span className="text-gray-700 font-bold text-sm mb-2">Follow our Social Media Handles</span>
   <motion.div
     whileHover={{ scale: 1.05 }}
     whileTap={{ scale: 0.95 }}
-    className="flex flex-col sm:flex-row gap-4 sm:gap-0" // Added gap for mobile, removed for desktop
+    className="flex flex-wrap justify-center gap-3"
   >
     <a href="https://www.instagram.com/mr.mrs_kidsdoc" target="_blank" rel="noopener noreferrer">
-      <Button variant="outline" className="border-red-300 sm:ml-4 text-red-600 hover:bg-red-50 rounded-full">
+      <Button variant="outline" className="border-purple-300 text-purple-600 hover:bg-purple-50 rounded-full text-xs sm:text-sm px-3 py-1 h-8">
         <FaInstagram className="w-4 h-4 mr-2" />
-        Mr . Mrs Kids Doc
+        mrmrs_kidsdoc
       </Button>
     </a>
-        <a href="https://www.youtube.com/@mr.mrs_kidsdoc" target="_blank" rel="noopener noreferrer">
-      <Button variant="outline" className="border-red-300 text-red-600 hover:bg-red-50 rounded-full">
+    <a href="https://www.youtube.com/@mr.mrs_kidsdoc" target="_blank" rel="noopener noreferrer">
+      <Button variant="outline" className="border-red-300 text-red-600 hover:bg-red-50 rounded-full text-xs sm:text-sm px-3 py-1 h-8">
         <FaYoutube className="w-4 h-4 mr-2" />
-        Mr . Mrs Kids Doc
+        mrmrs_kidsdoc
+      </Button>
+    </a>
+    <a href="https://www.whatsapp.com/channel/0029Vb6eC8M29758MYBDpB1B" target="_blank" rel="noopener noreferrer">
+      <Button variant="outline" className="border-green-300 text-green-600 hover:bg-green-50 rounded-full text-xs sm:text-sm px-3 py-1 h-8">
+        <FaWhatsapp className="w-4 h-4 mr-2" />
+        MrMrs.KidsDoc
       </Button>
     </a>
   </motion.div>
@@ -1262,9 +1275,6 @@ const handleOptionClick = ({
         </div>
       </section>
 
-      {/* Google Business */}
-      <GoogleBusinessProfile />
-
       {/* Testimonials */}
       {/* <TestimonialsSection /> */}
 
@@ -1327,7 +1337,7 @@ const handleOptionClick = ({
         }}
         className="text-3xl sm:text-4xl lg:text-5xl font-bold text-transparent bg-clip-text py-5 mb-6"
       >
-        Ready for Your Next Adventure?
+        Book a Checkup for your child right away
       </motion.h2>
 
       {/* Rest of the component remains the same */}
@@ -1419,6 +1429,9 @@ const handleOptionClick = ({
     </motion.div>
   </div>
 </motion.section>
+
+      {/* Google Business */}
+      <GoogleBusinessProfile />
 
       {/* Appointment Form */}
       <AppointmentForm />
@@ -1717,9 +1730,9 @@ const handleOptionClick = ({
       <motion.div variants={item}>
         <h3 className="font-semibold mb-4 text-sm sm:text-base">Connect with Us</h3>
         <div className="space-y-2 text-sm sm:text-base">
-          <p className="text-gray-400">Aster Prime Hospital</p>
+          {/* <p className="text-gray-400">Aster Prime Hospital</p>
           <p className="text-gray-400">Plot No 4, HMDA Maitrivanam, Satyam Theatre Rd, beside Blue Fox Hotel, Kumar Basti,</p>
-          <p className="text-gray-400">Srinivasa Nagar,Ameerpet, Hyderabad, Telangana 500038</p>
+          <p className="text-gray-400">Srinivasa Nagar,Ameerpet, Hyderabad, Telangana 500038</p> */}
           <motion.div
             variants={container}
             initial="hidden"
