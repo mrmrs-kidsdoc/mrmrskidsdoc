@@ -583,7 +583,7 @@ const handleOptionClick = ({
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6 }}
           >
-            Say goodbye to tearful checkups! Mr. & Mrs. Kids Doc bring {new Date().getFullYear() - 2013} years of pediatric magic to turn doctor visits into exciting adventures your children will love
+            Say goodbye to tearful checkups! Mr. & Mrs. Kids Doc bring {new Date().getFullYear() - 2013} years of pediatric magic to turn doctor visits into exciting that your children will love
           </motion.p>
         </motion.div>
         {/* <motion.div
