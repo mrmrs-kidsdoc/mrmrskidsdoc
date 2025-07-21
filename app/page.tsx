@@ -583,7 +583,7 @@ const handleOptionClick = ({
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6 }}
           >
-            Say goodbye to tearful checkups! Mr. & Mrs. Kids Doc bring {new Date().getFullYear() - 2013} years of pediatric magic to turn doctor visits into exciting that your children will love
+            Say goodbye to tearful checkups! Mr. & Mrs. Kids Doc bring {new Date().getFullYear() - 2013} years of pediatric magic to turn doctor visits into exciting that your children will love !
           </motion.p>
         </motion.div>
         {/* <motion.div
@@ -1314,120 +1314,145 @@ const handleOptionClick = ({
     ))}
   </div>
 
-  <div className="container mx-auto px-4 text-center relative z-10">
-    <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
-      viewport={{ once: true }}
-      className="max-w-4xl mx-auto"
-    >
-      <motion.h2
+      <div className="relative overflow-hidden min-h-screen w-full">
+      {/* Animated Gradient Background */}
+      <motion.div
+        className="absolute inset-0 -z-10"
         animate={{
-          backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+            background: [
+    "linear-gradient(135deg, #e0f2fe 0%, #bae6fd 50%, #a5f3fc 100%)",
+    "linear-gradient(135deg, #a5f3fc 0%, #e0f2fe 50%, #bae6fd 100%)",
+    "linear-gradient(135deg, #bae6fd 0%, #a5f3fc 50%, #e0f2fe 100%)"
+  ]
         }}
         transition={{
-          duration: 8,
+          duration: 15,
           repeat: Infinity,
+          repeatType: "reverse",
           ease: "linear"
         }}
-        style={{
-          backgroundSize: "200% auto",
-          backgroundImage: "linear-gradient(to right, #e0f2fe, #bae6fd, #a5f3fc, #bae6fd, #e0f2fe)"
-        }}
-        className="text-3xl sm:text-4xl lg:text-5xl font-bold text-transparent bg-clip-text py-5 mb-6"
-      >
-        Book a Checkup for your child right away
-      </motion.h2>
-
-      {/* Rest of the component remains the same */}
-      <motion.p
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
-        viewport={{ once: true }}
-        className="text-lg sm:text-xl text-white/90 mb-8 max-w-2xl mx-auto"
-      >
-        Book an appointment today and let us make your child's healthcare journey a magical experience they'll
-        actually look forward to!
-      </motion.p>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 0.4 }}
-        viewport={{ once: true }}
-        className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
-      >
+      />
+      
+      {/* Content Container */}
+      <div className="container mx-auto px-4 text-center relative z-10 py-16 md:py-24">
         <motion.div
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="max-w-4xl mx-auto"
         >
-          <Button onClick={()=>{setIsOpen(true)}}
-          size="lg"
-          className="bg-white text-indigo-600 hover:bg-gray-50 rounded-full px-6 sm:px-8 py-3 sm:py-4 shadow-lg hover:shadow-xl transition-all duration-300 font-medium"
+          {/* Animated Heading */}
+          <motion.h2
+            animate={{
+              backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "linear"
+            }}
+            style={{
+              backgroundSize: "200% auto",
+              backgroundImage: "linear-gradient(to right, #fca5a5, #fde68a, #bbf7d0, #bfdbfe, #ddd6fe, #fbcfe8)"
+            }}
+            className="text-3xl sm:text-4xl lg:text-5xl font-bold text-transparent bg-clip-text py-5 mb-6"
           >
-          <Calendar1 className="w-5 h-5 mr-2" />
-          Book Appointment
-          <ArrowRight className="w-5 h-5 ml-2" />
-          </Button>
-        </motion.div>
-      </motion.div>
+            Book a Checkup for your child right away
+          </motion.h2>
 
-      <motion.div
-        variants={container}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true }}
-        className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 text-white"
-      >
-        {[
-          {
-            icon: <Clock className="w-6 h-6 sm:w-8 sm:h-8 mx-auto mb-3" />,
-            title: "Flexible Hours",
-            text: "Early morning and evening appointments available"
-          },
-          {
-            icon: <MapPin className="w-6 h-6 sm:w-8 sm:h-8 mx-auto mb-3" />,
-            title: "Convenient Location",
-            text: "Easy parking and kid-friendly waiting area"
-          },
-          {
-            icon: <Heart className="w-6 h-6 sm:w-8 sm:h-8 mx-auto mb-3" />,
-            title: "Family-Centered Care",
-            text: "We treat the whole family with love and respect"
-          }
-        ].map((stat, index) => (
+          {/* Subheading */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="text-lg sm:text-xl text-gray-800 mb-8 max-w-2xl mx-auto"
+          >
+            Book an appointment today and let us make your child's healthcare journey a magical experience they'll
+            actually look forward to!
+          </motion.p>
+
+          {/* CTA Button */}
           <motion.div
-            key={index}
-            variants={item}
-            className="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/10 hover:border-white/20 transition-all duration-300"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            viewport={{ once: true }}
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
           >
             <motion.div
-              animate={
-                index === 0
-                  ? { rotate: 360 }
-                  : index === 1
-                  ? bounce
-                  : pulse
-              }
-              transition={
-                index === 0
-                  ? { duration: 10, repeat: Infinity, ease: "linear" }
-                  : index === 1
-                  ? { duration: 1.5, repeat: Infinity, ease: easeOut }
-                  : { duration: 2, repeat: Infinity }
-              }
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              {stat.icon}
+              <Button 
+                onClick={() => setIsOpen(true)}
+                size="lg"
+                className="bg-white text-indigo-600 hover:bg-gray-50 rounded-full px-6 sm:px-8 py-3 sm:py-4 shadow-lg hover:shadow-xl transition-all duration-300 font-medium"
+              >
+                <Calendar1 className="w-5 h-5 mr-2" />
+                Book Appointment
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
             </motion.div>
-            <h3 className="font-semibold text-base sm:text-lg">{stat.title}</h3>
-            <p className="text-sm sm:text-base text-white/80">{stat.text}</p>
           </motion.div>
-        ))}
-      </motion.div>
-    </motion.div>
-  </div>
+
+          {/* Features Grid */}
+          <motion.div
+            variants={container}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8"
+          >
+            {[
+              {
+                icon: <Clock className="w-6 h-6 sm:w-8 sm:h-8 mx-auto mb-3" />,
+                title: "Flexible Hours",
+                text: "Early morning and evening appointments available"
+              },
+              {
+                icon: <MapPin className="w-6 h-6 sm:w-8 sm:h-8 mx-auto mb-3" />,
+                title: "Convenient Location",
+                text: "Easy parking and kid-friendly waiting area"
+              },
+              {
+                icon: <Heart className="w-6 h-6 sm:w-8 sm:h-8 mx-auto mb-3" />,
+                title: "Family-Centered Care",
+                text: "We treat the whole family with love and respect"
+              }
+            ].map((stat, index) => (
+              <motion.div
+                key={index}
+                variants={item}
+                className="bg-white/80 backdrop-blur-sm p-6 rounded-xl border border-white hover:border-indigo-100 shadow-sm hover:shadow-md transition-all duration-300"
+              >
+                <motion.div
+                  animate={
+                    index === 0
+                      ? { rotate: 360 }
+                      : index === 1
+                      ? bounce
+                      : pulse
+                  }
+                  transition={
+                    index === 0
+                      ? { duration: 10, repeat: Infinity, ease: "linear" }
+                      : index === 1
+                      ? { duration: 1.5, repeat: Infinity, ease: easeOut }
+                      : { duration: 2, repeat: Infinity }
+                  }
+                >
+                  {stat.icon}
+                </motion.div>
+                <h3 className="font-semibold text-base sm:text-lg text-gray-800">{stat.title}</h3>
+                <p className="text-sm sm:text-base text-gray-600">{stat.text}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </motion.div>
+      </div>
+    </div>
 </motion.section>
 
       {/* Google Business */}
