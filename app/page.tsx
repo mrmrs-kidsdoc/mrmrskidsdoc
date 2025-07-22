@@ -225,8 +225,8 @@ const handleOptionClick = ({
                   transition={{ delay: 0.2 + i * 0.1 }}
                   className={`p-4 rounded-2xl space-y-3 ${
                     i === 0 
-                      ? 'bg-gradient-to-r from-blue-100 to-blue-50 border border-blue-200' 
-                      : 'bg-gradient-to-r from-pink-100 to-pink-50 border border-pink-200'
+                      ? 'bg-gradient-to-r from-blue-400 to-blue-300 border border-blue-200' 
+                      : 'bg-gradient-to-r from-pink-400 to-pink-300 border border-pink-200'
                   }`}
                 >
                   <p className="font-semibold text-gray-800 text-lg">{doctor.name}</p>
@@ -328,7 +328,7 @@ const handleOptionClick = ({
       transition={{ delay: 0.3 }}
     >
       <motion.a
-        href="https://www.instagram.com/mr.mrs_kidsdoc/"
+        href="https://www.instagram.com/mr.mrs.kidsdoc/"
         target="_blank"
         rel="noopener noreferrer"
         whileHover={{ scale: 1.1 }}
@@ -339,7 +339,7 @@ const handleOptionClick = ({
       </motion.a>
 
       <motion.a
-        href="https://www.youtube.com/@mr.mrs_kidsdoc"
+        href="https://www.youtube.com/@mr.mrs.kidsdoc"
         target="_blank"
         rel="noopener noreferrer"
         whileHover={{ scale: 1.1 }}
@@ -436,7 +436,7 @@ const handleOptionClick = ({
               className="flex space-x-3"
             >
               <motion.a
-                href="https://www.instagram.com/mr.mrs_kidsdoc/"
+                href="https://www.instagram.com/mr.mrs.kidsdoc/"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.1, y: -2 }}
@@ -447,7 +447,7 @@ const handleOptionClick = ({
               </motion.a>
 
               <motion.a
-                href="https://www.youtube.com/@mr.mrs_kidsdoc"
+                href="https://www.youtube.com/@mr.mrs.kidsdoc"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.1, y: -2 }}
@@ -583,7 +583,7 @@ const handleOptionClick = ({
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6 }}
           >
-            Say goodbye to tearful checkups! Mr. & Mrs. Kids Doc bring {new Date().getFullYear() - 2013} years of pediatric magic to turn doctor visits into exciting that your children will love !
+            Say goodbye to tearful checkups! Mr.Mrs.KidsDoc bring {new Date().getFullYear() - 2013} years of pediatric magic to turn doctor visits into exciting that your children will love !
           </motion.p>
         </motion.div>
         {/* <motion.div
@@ -956,7 +956,7 @@ const handleOptionClick = ({
                     </div>
                     <div className="pt-4 border-t border-gray-100">
                       <p className="text-xs sm:text-sm">
-                        <strong>Fun Fact:</strong>
+                        <strong>Fun Fact: </strong>
                         Dedicated to nurturing little hearts with kindness, expertise, and a sprinkle of joy—making every check-up an adventure in care.
                         </p>
                     </div>
@@ -1099,22 +1099,22 @@ const handleOptionClick = ({
     whileTap={{ scale: 0.95 }}
     className="flex flex-wrap justify-center gap-3"
   >
-    <a href="https://www.instagram.com/mr.mrs_kidsdoc" target="_blank" rel="noopener noreferrer">
+    <a href="https://www.instagram.com/mr.mrs.kidsdoc" target="_blank" rel="noopener noreferrer">
       <Button variant="outline" className="border-purple-300 text-purple-600 hover:bg-purple-50 rounded-full text-xs sm:text-sm px-3 py-1 h-8">
         <FaInstagram className="w-4 h-4 mr-2" />
-        mrmrs_kidsdoc
+        mr.mrs.kidsdoc
       </Button>
     </a>
-    <a href="https://www.youtube.com/@mr.mrs_kidsdoc" target="_blank" rel="noopener noreferrer">
+    <a href="https://www.youtube.com/@mr.mrs.kidsdoc" target="_blank" rel="noopener noreferrer">
       <Button variant="outline" className="border-red-300 text-red-600 hover:bg-red-50 rounded-full text-xs sm:text-sm px-3 py-1 h-8">
         <FaYoutube className="w-4 h-4 mr-2" />
-        mrmrs_kidsdoc
+        mr.mrs.kidsdoc
       </Button>
     </a>
     <a href="https://www.whatsapp.com/channel/0029Vb6eC8M29758MYBDpB1B" target="_blank" rel="noopener noreferrer">
       <Button variant="outline" className="border-green-300 text-green-600 hover:bg-green-50 rounded-full text-xs sm:text-sm px-3 py-1 h-8">
         <FaWhatsapp className="w-4 h-4 mr-2" />
-        MrMrs.KidsDoc
+        Mr.Mrs.KidsDoc
       </Button>
     </a>
   </motion.div>
@@ -1280,15 +1280,15 @@ const handleOptionClick = ({
 
       {/* Book Appointment */}
       <motion.section
-  initial={{ opacity: 0 }}
-  whileInView={{ opacity: 1 }}
-  transition={{ duration: 0.8 }}
-  viewport={{ once: true }}
-  className="py-16 sm:py-20 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-800 relative overflow-hidden"
->
-  {/* Subtle animated particles */}
-  <div className="absolute inset-0">
-    {[...Array(15)].map((_, i) => (
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
+      viewport={{ once: true }}
+      className="py-16 sm:py-20 bg-gradient-to-br from-pink-100 via-pink-200 to-pink-300 relative overflow-hidden"
+      >
+      {/* Subtle animated particles */}
+      <div className="absolute inset-0">
+      {[...Array(15)].map((_, i) => (
       <motion.div
         key={i}
         className="absolute rounded-full"
@@ -1311,150 +1311,157 @@ const handleOptionClick = ({
           ease: "easeInOut"
         }}
       />
-    ))}
-  </div>
+      ))}
+      </div>
 
       <div className="relative overflow-hidden min-h-screen w-full">
       {/* Animated Gradient Background */}
       <motion.div
-        className="absolute inset-0 -z-10"
-        animate={{
-            background: [
-    "linear-gradient(135deg, #e0f2fe 0%, #bae6fd 50%, #a5f3fc 100%)",
-    "linear-gradient(135deg, #a5f3fc 0%, #e0f2fe 50%, #bae6fd 100%)",
-    "linear-gradient(135deg, #bae6fd 0%, #a5f3fc 50%, #e0f2fe 100%)"
-  ]
-        }}
-        transition={{
-          duration: 15,
-          repeat: Infinity,
-          repeatType: "reverse",
-          ease: "linear"
-        }}
+      className="absolute inset-0 -z-10"
+      animate={{
+        background: [
+          "linear-gradient(135deg, #fce7f3 0%, #fbcfe8 50%, #ffe4e6 100%)",
+          "linear-gradient(135deg, #fbcfe8 0%, #ffe4e6 50%, #fce7f3 100%)",
+          "linear-gradient(135deg, #ffe4e6 0%, #fce7f3 50%, #fbcfe8 100%)"
+        ]
+      }}
+      transition={{
+        duration: 20,
+        repeat: Infinity,
+        repeatType: "reverse",
+        ease: "linear"
+      }}
       />
-      
+
       {/* Content Container */}
       <div className="container mx-auto px-4 text-center relative z-10 py-16 md:py-24">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="max-w-4xl mx-auto"
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+        className="max-w-4xl mx-auto"
+      >
+        {/* Animated Heading */}
+        <motion.h2
+          animate={{
+            backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+          style={{
+            backgroundSize: "200% auto",
+            backgroundImage: "linear-gradient(to right, #2563eb, #1d4ed8, #3b82f6, #60a5fa, #93c5fd)"
+          }}
+          className="text-3xl sm:text-4xl lg:text-5xl font-bold text-transparent bg-clip-text py-5 mb-6"
         >
-          {/* Animated Heading */}
-          <motion.h2
-            animate={{
-              backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-            }}
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-              ease: "linear"
-            }}
-            style={{
-              backgroundSize: "200% auto",
-              backgroundImage: "linear-gradient(to right, #fca5a5, #fde68a, #bbf7d0, #bfdbfe, #ddd6fe, #fbcfe8)"
-            }}
-            className="text-3xl sm:text-4xl lg:text-5xl font-bold text-transparent bg-clip-text py-5 mb-6"
-          >
-            Book a Checkup for your child right away
-          </motion.h2>
+          Book a Checkup for your child right away
+        </motion.h2>
 
-          {/* Subheading */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="text-lg sm:text-xl text-gray-800 mb-8 max-w-2xl mx-auto"
-          >
-            Book an appointment today and let us make your child's healthcare journey a magical experience they'll
-            actually look forward to!
-          </motion.p>
+        {/* Subheading */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          viewport={{ once: true }}
+          className="text-lg sm:text-xl text-gray-800 mb-8 max-w-2xl mx-auto"
+        >
+          Book an appointment today and let us make your child's healthcare journey a magical experience they'll
+          actually look forward to!
+        </motion.p>
 
-          {/* CTA Button */}
+        {/* CTA Button */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          viewport={{ once: true }}
+          className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
+        >
           <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            viewport={{ once: true }}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+            <Button 
+              onClick={() => setIsOpen(true)}
+              size="lg"
+              className="bg-white text-pink-600 hover:bg-gray-50 rounded-full px-6 sm:px-8 py-3 sm:py-4 shadow-lg hover:shadow-xl transition-all duration-300 font-medium"
             >
-              <Button 
-                onClick={() => setIsOpen(true)}
-                size="lg"
-                className="bg-white text-indigo-600 hover:bg-gray-50 rounded-full px-6 sm:px-8 py-3 sm:py-4 shadow-lg hover:shadow-xl transition-all duration-300 font-medium"
-              >
-                <Calendar1 className="w-5 h-5 mr-2" />
-                Book Appointment
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
-            </motion.div>
-          </motion.div>
-
-          {/* Features Grid */}
-          <motion.div
-            variants={container}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8"
-          >
-            {[
-              {
-                icon: <Clock className="w-6 h-6 sm:w-8 sm:h-8 mx-auto mb-3" />,
-                title: "Flexible Hours",
-                text: "Early morning and evening appointments available"
-              },
-              {
-                icon: <MapPin className="w-6 h-6 sm:w-8 sm:h-8 mx-auto mb-3" />,
-                title: "Convenient Location",
-                text: "Easy parking and kid-friendly waiting area"
-              },
-              {
-                icon: <Heart className="w-6 h-6 sm:w-8 sm:h-8 mx-auto mb-3" />,
-                title: "Family-Centered Care",
-                text: "We treat the whole family with love and respect"
-              }
-            ].map((stat, index) => (
-              <motion.div
-                key={index}
-                variants={item}
-                className="bg-white/80 backdrop-blur-sm p-6 rounded-xl border border-white hover:border-indigo-100 shadow-sm hover:shadow-md transition-all duration-300"
-              >
-                <motion.div
-                  animate={
-                    index === 0
-                      ? { rotate: 360 }
-                      : index === 1
-                      ? bounce
-                      : pulse
-                  }
-                  transition={
-                    index === 0
-                      ? { duration: 10, repeat: Infinity, ease: "linear" }
-                      : index === 1
-                      ? { duration: 1.5, repeat: Infinity, ease: easeOut }
-                      : { duration: 2, repeat: Infinity }
-                  }
-                >
-                  {stat.icon}
-                </motion.div>
-                <h3 className="font-semibold text-base sm:text-lg text-gray-800">{stat.title}</h3>
-                <p className="text-sm sm:text-base text-gray-600">{stat.text}</p>
-              </motion.div>
-            ))}
+              <Calendar1 className="w-5 h-5 mr-2" />
+              Book Appointment
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </Button>
           </motion.div>
         </motion.div>
-      </div>
-    </div>
-</motion.section>
 
+        {/* Features Grid */}
+        <motion.div
+  variants={container}
+  initial="hidden"
+  whileInView="show"
+  viewport={{ once: true }}
+  className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8"
+>
+  {[
+    {
+      icon: <Clock className="w-6 h-6 sm:w-8 sm:h-8 mx-auto mb-3" />,
+      title: "Flexible Hours",
+      text: "Early morning and evening appointments available"
+    },
+    {
+      icon: <MapPin className="w-6 h-6 sm:w-8 sm:h-8 mx-auto mb-3" />,
+      title: "Convenient Location",
+      text: "Easy parking and kid-friendly waiting area"
+    },
+    {
+      icon: <Heart className="w-6 h-6 sm:w-8 sm:h-8 mx-auto mb-3" />,
+      title: "Family-Centered Care",
+      text: "We treat the whole family with love and respect"
+    }
+  ].map((stat, index) => (
+    <motion.div
+      key={index}
+      variants={item}
+      className="bg-white/80 backdrop-blur-sm p-6 rounded-xl border border-white hover:border-pink-100 shadow-sm hover:shadow-md transition-all duration-300"
+    >
+      <motion.div
+        animate={
+          index === 0
+            ? { rotate: 360 }
+            : index === 1
+            ? bounce
+            : {
+                scale: [1, 1.2, 1],
+                transition: {
+                  duration: 1.2,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }
+              }
+        }
+        transition={
+          index === 0
+            ? { duration: 10, repeat: Infinity, ease: "linear" }
+            : index === 1
+            ? { duration: 1.5, repeat: Infinity, ease: "easeOut" }
+            : {} // transition is defined in animate for the heart
+        }
+      >
+        {stat.icon}
+      </motion.div>
+      <h3 className="font-semibold text-base sm:text-lg text-gray-800">{stat.title}</h3>
+      <p className="text-sm sm:text-base text-gray-600">{stat.text}</p>
+    </motion.div>
+  ))}
+</motion.div>
+      </motion.div>
+      </div>
+      </div>
+      </motion.section>
+      
       {/* Google Business */}
       <GoogleBusinessProfile />
 
@@ -1769,12 +1776,12 @@ const handleOptionClick = ({
           { 
           icon: <FaInstagram className="w-5 h-4" />, 
           color: "bg-gradient-to-br from-purple-500 to-pink-500",
-          link: "https://www.instagram.com/mr.mrs_kidsdoc/" 
+          link: "https://www.instagram.com/mr.mrs.kidsdoc" 
           },
           { 
           icon: <FaYoutube className="w-5 h-5" />, 
           color: "bg-red-600",
-          link: "https://www.youtube.com/@mr.mrs_kidsdoc" 
+          link: "https://www.youtube.com/@mr.mrs.kidsdoc" 
           },
           { 
           icon: <FaWhatsapp className="w-5 h-5" />, 
@@ -1826,7 +1833,7 @@ const handleOptionClick = ({
           }}
           className="font-medium text-transparent bg-clip-text"
         >
-          Mr. & Mrs. Kids Doc
+          Mr.Mrs.KidsDoc
         </motion.a>{" "}
         All rights reserved. | Made with ❤️ for little ones everywhere.
       </p>

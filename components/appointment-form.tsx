@@ -36,7 +36,7 @@ function AppointmentFormContent(): JSX.Element {
   const hospitalInfo = [
     {
       doctor: "Dr. Rishivardhan Reddy",
-      name: "Aster Prime Hospital - Hyderabad",
+      name: "Aster Prime Hospital",
       address: `Plot No 4, HMDA Maitrivanam,
 Satyam Theatre Rd, beside Blue Fox Hotel,
 Kumar Basti, Srinivasa Nagar,
@@ -60,19 +60,19 @@ Ameerpet, Hyderabad, Telangana 500038`,
   ]
 
   return (
-<section className="relative py-16 sm:py-20 overflow-hidden bg-[conic-gradient(at_top_left,_var(--tw-gradient-stops))] from-purple-100 via-pink-100 to-yellow-100">
-  {/* Animated Decorative Background Bubbles */}
-  <div className="absolute inset-0 pointer-events-none z-0">
-    <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-tr from-pink-300 via-purple-300 to-yellow-300 rounded-full blur-3xl opacity-30 animate-ping-slow" />
-    <div className="absolute bottom-10 right-10 w-40 h-40 bg-gradient-to-tr from-purple-400 to-pink-300 rounded-full blur-2xl opacity-20 animate-float" />
-    <div className="absolute top-1/3 left-1/2 w-24 h-24 bg-gradient-to-br from-yellow-300 via-pink-400 to-purple-400 rounded-full blur-2xl opacity-20 animate-pulse-slow" />
-  </div>
+    <section className="relative py-16 sm:py-20 overflow-hidden bg-[conic-gradient(at_top_left,_var(--tw-gradient-stops))] from-purple-100 via-pink-100 to-yellow-100">
+      {/* Animated Decorative Background Bubbles */}
+      <div className="absolute inset-0 pointer-events-none z-0">
+        <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-tr from-pink-300 via-purple-300 to-yellow-300 rounded-full blur-3xl opacity-30 animate-ping-slow" />
+        <div className="absolute bottom-10 right-10 w-40 h-40 bg-gradient-to-tr from-purple-400 to-pink-300 rounded-full blur-2xl opacity-20 animate-float" />
+        <div className="absolute top-1/3 left-1/2 w-24 h-24 bg-gradient-to-br from-yellow-300 via-pink-400 to-purple-400 rounded-full blur-2xl opacity-20 animate-pulse-slow" />
+      </div>
 
-  <div id="appointment" className="container mx-auto px-4 relative z-10">
+      <div id="appointment" className="container mx-auto px-4 relative z-10">
         {/* Header */}
         <div className="text-center mb-12 animate-fadeInUp">
-          <div className="flex items-center justify-center space-x-2 text-blue-600 mb-4">
-            <Calendar className="w-6 h-6 animate-wiggle" />
+          <div className="flex items-center justify-center gap-2 text-blue-600 mb-4">
+            <Calendar className="w-5 h-5 animate-wiggle" />
             <span className="text-lg font-semibold">Book Your Visit</span>
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-800 mb-4">
@@ -94,15 +94,15 @@ Ameerpet, Hyderabad, Telangana 500038`,
                 : "bg-white text-gray-600 hover:text-gray-800 border border-gray-200"
                 }`}
             >
-              <span className="flex items-center">
-                <CircleUser className="w-6 h-6 mr-2" />
+              <span className="flex items-center gap-2">
+                <CircleUser className="w-5 h-5" />
                 Dr. {doctor.doctor.split(" ")[1]}
               </span>
             </button>
           ))}
         </div>
 
-        {/* Tabs - Updated with filled colors */}
+        {/* Tabs */}
         <div className="flex justify-center mb-8">
           <div className="inline-flex rounded-full overflow-hidden shadow-md">
             <button
@@ -112,8 +112,8 @@ Ameerpet, Hyderabad, Telangana 500038`,
                 : "bg-white text-gray-600 hover:bg-blue-50"
                 }`}
             >
-              <span className="flex items-center">
-                <MapPin className="w-4 h-4 mr-2" />
+              <span className="flex items-center gap-2">
+                <MapPin className="w-5 h-5" />
                 Clinic Visit
               </span>
             </button>
@@ -124,8 +124,8 @@ Ameerpet, Hyderabad, Telangana 500038`,
                 : "bg-white text-gray-600 hover:bg-pink-50"
                 }`}
             >
-              <span className="flex items-center">
-                <Video className="w-4 h-4 mr-2" />
+              <span className="flex items-center gap-2">
+                <Video className="w-5 h-5" />
                 Online Consultation
               </span>
             </button>
@@ -152,69 +152,88 @@ Ameerpet, Hyderabad, Telangana 500038`,
               className="bg-gradient-to-br from-blue-100 to-blue-50 rounded-[2rem] p-1 shadow-xl"
             >
               <Card className="rounded-[1.75rem] border-0 shadow-none">
-                <CardContent className="p-6 sm:p-8">
-                  <h3 className="text-2xl font-bold text-gray-800 mb-6 flex items-center justify-center">
-                    <FaUserDoctor className="w-6 h-6 text-blue-500 mr-2" />
-                    {hospitalInfo[selectedDoctor].doctor}
-                  </h3>
-                  <h3 className="text-2xl font-bold text-gray-800 mb-6 flex items-center justify-center">
-                    <FaRegHospital className="w-6 h-6 text-blue-500 mr-2" />
-                    {hospitalInfo[selectedDoctor].name}
-                  </h3>
+              <CardContent className="p-6 sm:p-8">
+              {/* Doctor section with circle */}
+              <h3 className="text-2xl font-bold text-gray-800 mb-6 flex items-center justify-center gap-2">
+              <div className="w-7 h-7 sm:w-9 sm:h-9 flex items-center justify-center rounded-full bg-blue-100 text-blue-500">
+              <FaUserDoctor className="w-4 h-4 sm:w-5 sm:h-5" />
+              </div>
+              {hospitalInfo[selectedDoctor].doctor}
+              </h3>
 
-                  <div className="space-y-4 flex flex-col items-center">
-                  {/* Address with MapPin icon */}
-                  <div className="flex items-start gap-2 max-w-md">
-                  <MapPin className="w-5 h-5 mt-0.5 text-blue-500 flex-shrink-0" />
-                  <a
-                  href={hospitalInfo[selectedDoctor].mapLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="whitespace-pre-line hover:text-blue-600 transition-colors cursor-pointer"
-                  >
-                  {hospitalInfo[selectedDoctor].address}
-                  </a>
-                  </div>
+              {/* Hospital section with circle */}
+              <h3 className="text-2xl font-bold text-gray-800 mb-6 flex items-center justify-center gap-2">
+              <div className="w-7 h-7 sm:w-9 sm:h-9 flex items-center justify-center rounded-full bg-blue-100 text-blue-500">
+              <FaRegHospital className="w-4 h-4 sm:w-5 sm:h-5" />
+              </div>
+              {hospitalInfo[selectedDoctor].name}
+              </h3>
 
-                  {/* Phone number with Phone icon */}
-                  <div className="flex items-center gap-2">
-                  <Phone className="w-5 h-5 text-blue-500 flex-shrink-0" />
-                  <a
-                  href={`tel:${hospitalInfo[selectedDoctor].phone.replace(/\D/g, "")}`}
-                  className="text-blue-600 hover:text-blue-800 transition-colors font-medium"
-                  >
-                  {hospitalInfo[selectedDoctor].phone}
-                  </a>
-                  </div>
-                  </div>
+              <div className="space-y-4 flex flex-col items-center">
+              {/* Address with MapPin icon in circle */}
+              <div className="flex items-start gap-2 max-w-md">
+              <div className="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center rounded-full bg-blue-100 text-blue-500 mt-0.5 flex-shrink-0">
+              <MapPin className="w-3 h-3 sm:w-4 sm:h-4" />
+              </div>
+              <a
+              href={hospitalInfo[selectedDoctor].mapLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="whitespace-pre-line hover:text-blue-600 transition-colors cursor-pointer"
+              >
+              {hospitalInfo[selectedDoctor].address}
+              </a>
+              </div>
 
-                  <div className="mt-8 flex flex-col items-center space-y-3 max-w-xs mx-auto">
-                    <Button
-                      asChild
-                      className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white py-3 rounded-full font-medium shadow-lg"
-                    >
-                      <a
-                        href={hospitalInfo[selectedDoctor].mapLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <MapPin className="w-4 h-4 mr-2" />
-                        Get Directions
-                      </a>
-                    </Button>
+              {/* Phone number with Phone icon in circle */}
+              <div className="flex items-center gap-2">
+              <div className="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center rounded-full bg-blue-100 text-blue-500 flex-shrink-0">
+              <Phone className="w-3 h-3 sm:w-4 sm:h-4" />
+              </div>
+              <a
+              href={`tel:${hospitalInfo[selectedDoctor].phone.replace(/\D/g, "")}`}
+              className="text-blue-600 hover:text-blue-800 transition-colors font-medium"
+              >
+              {hospitalInfo[selectedDoctor].phone}
+              </a>
+              </div>
+              </div>
 
-                    <Button
-                      asChild
-                      variant="outline"
-                      className="w-full border-blue-500 text-blue-600 hover:bg-blue-50 hover:text-blue-700 py-3 rounded-full font-medium"
-                    >
-                      <a href={`tel:${hospitalInfo[selectedDoctor].phone.replace(/\D/g, "")}`}>
-                        <Phone className="w-4 h-4 mr-2" />
-                        Call Clinic Now
-                      </a>
-                    </Button>
-                  </div>
-                </CardContent>
+              <div className="mt-8 flex flex-col items-center space-y-3 max-w-xs mx-auto">
+              <Button
+              asChild
+              className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white py-3 rounded-full font-medium shadow-lg"
+              >
+              <a
+              href={hospitalInfo[selectedDoctor].mapLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              >
+              <span className="flex items-center gap-2">
+              <div className="w-5 h-5 flex items-center justify-center rounded-full bg-blue-400/30">
+              <MapPin className="w-3 h-3" />
+              </div>
+              Get Directions
+              </span>
+              </a>
+              </Button>
+
+              <Button
+              asChild
+              variant="outline"
+              className="w-full border-blue-500 text-blue-600 hover:bg-blue-50 hover:text-blue-700 py-3 rounded-full font-medium"
+              >
+              <a href={`tel:${hospitalInfo[selectedDoctor].phone.replace(/\D/g, "")}`}>
+              <span className="flex items-center gap-2">
+              <div className="w-5 h-5 flex items-center justify-center rounded-full bg-blue-100">
+              <Phone className="w-3 h-3" />
+              </div>
+              Call Clinic Now
+              </span>
+              </a>
+              </Button>
+              </div>
+              </CardContent>
               </Card>
             </motion.div>
           </div>
@@ -238,7 +257,7 @@ Ameerpet, Hyderabad, Telangana 500038`,
             > 
               <CardContent className="p-8 text-center">
                 <div className="w-20 h-20 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Video className="w-10 h-10 text-pink-500" />
+                  <Video className="w-6 h-6 text-pink-500" />
                 </div>
 
                 <h3 className="text-2xl font-bold text-gray-800 mb-4">
@@ -257,7 +276,10 @@ Ameerpet, Hyderabad, Telangana 500038`,
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    Book Online Consultation Now
+                    <span className="flex items-center gap-2">
+                      <Video className="w-5 h-5" />
+                      Book Online Consultation Now
+                    </span>
                   </a>
                 </Button>
 
