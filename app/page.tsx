@@ -567,9 +567,9 @@ const handleOptionClick = ({
 >
   <div className="inline-block">
     <h2 className="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold leading-tight">
-      <span className="text-primary">Where Little Smiles </span>
-      <span className="bg-gradient-to-r from-primary to-accent2 bg-clip-text text-transparent">
-        Meet Big Hearts
+      <span className="text-blue-500">Where Little Smiles </span>
+        <span className="bg-gradient-to-r from-blue-600 via-purple-500 to-blue-300 bg-clip-text text-transparent">
+      Meet Big Hearts
       </span>
     </h2>
   </div>
@@ -853,7 +853,7 @@ const handleOptionClick = ({
               viewport={{ once: true }}
               className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-800 mb-4 title-font"
             >
-              Mr. & Mrs. Kids
+              Mr. & Mrs. Kids Doc
             </motion.h2>
             <motion.p
               initial={{ opacity: 0 }}
